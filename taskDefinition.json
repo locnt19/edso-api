@@ -1,0 +1,37 @@
+{
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "containerDefinitions": [
+        {
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/tncc-ENVIRONMENT-chat-service",
+                    "awslogs-region": "ap-southeast-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "portMappings": [
+                {
+                    "hostPort": 3011,
+                    "protocol": "tcp",
+                    "containerPort": 3011
+                }
+            ],
+            "memoryReservation": 256,
+            "image": "066130180125.dkr.ecr.ap-southeast-1.amazonaws.com/tncc-chat-service:ENVIRONMENT",
+            "name": "tncc-chat-service",
+            "cpu": 256,
+            "memory": 512,
+            "essential": true
+        }
+    ],
+    "networkMode": "awsvpc",
+    "family": "tncc-ENVIRONMENT-chat-service",
+    "executionRoleArn": "arn:aws:iam::066130180125:role/ecsTaskExecutionRole",
+    "taskRoleArn": "arn:aws:iam::066130180125:role/ecsTaskExecutionRole",
+    "cpu": "256",
+    "memory": "512"
+}
+
