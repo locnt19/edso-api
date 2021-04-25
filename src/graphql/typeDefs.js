@@ -4,81 +4,81 @@ import { MessageTypeDefs } from './types/Message';
 import { CallInAppLoginInfoTypeDefs } from './types/CallInAppLoginInfo';
 
 export const typeDefs = gql`
-  scalar Upload
+    scalar Upload
 
-  scalar EmailAddress
+    scalar EmailAddress
 
-  scalar ObjectID
+    scalar ObjectID
 
-  scalar DateTime
+    scalar DateTime
 
-  scalar Date
+    scalar Date
 
-  scalar URL
+    scalar URL
 
-  scalar JSONObject
+    scalar JSONObject
 
-  interface MutationOf {
-    "Mutation result"
-    success: Boolean
-    "Mutation message"
-    msg: String
-  }
+    interface MutationOf {
+        "Mutation result"
+        success: Boolean
+        "Mutation message"
+        msg: String
+    }
 
-  interface PaginationOf {
-    "Self descriptive"
-    hasNextPage: Boolean
-    "Self descriptive"
-    hasPrevPage: Boolean
-    "Self descriptive"
-    limit: Int
-    "Self descriptive"
-    nextPage: Int
-    "Self descriptive"
-    offset: Int
-    "Self descriptive"
-    prevPage: Int
-    "Self descriptive"
-    total: Int
-    "Self descriptive"
-    totalPages: Int
-  }
+    interface PaginationOf {
+        "Self descriptive"
+        hasNextPage: Boolean
+        "Self descriptive"
+        hasPrevPage: Boolean
+        "Self descriptive"
+        limit: Int
+        "Self descriptive"
+        nextPage: Int
+        "Self descriptive"
+        offset: Int
+        "Self descriptive"
+        prevPage: Int
+        "Self descriptive"
+        total: Int
+        "Self descriptive"
+        totalPages: Int
+    }
 
-  type MutationMessage implements MutationOf {
-    "Mutation result"
-    success: Boolean
-    "Mutation message"
-    msg: String
-  }
+    type MutationMessage implements MutationOf {
+        "Mutation result"
+        success: Boolean
+        "Mutation message"
+        msg: String
+    }
 
-  type Query {
-    "List conversation"
-    conversations(offset: Int, limit: Int): PaginationOfConversation
-    "List messages of a conversation"
-    messages(
-      conversationId: ObjectID!
-      offset: Int
-      limit: Int
-    ): PaginationOfMessage
-    "Get call in app login info"
-    callInAppLoginInfo: CallInAppLoginInfo
-    callInAppUserExtension(userId: ObjectID!): CallInAppUserExtension
-  }
+    type Query {
+        "List conversation"
+        conversations(offset: Int, limit: Int): PaginationOfConversation
+        "List messages of a conversation"
+        messages(
+            conversationId: ObjectID!
+            offset: Int
+            limit: Int
+        ): PaginationOfMessage
+        "Get call in app login info"
+        callInAppLoginInfo: CallInAppLoginInfo
+        callInAppUserExtension(userId: ObjectID!): CallInAppUserExtension
+    }
 
-  type Mutation {
-    createConversation(userIds: [ObjectID!]!): MutationOfConversation
-    sendMessage(
-      recipient: RecipientInput!
-      message: MessageInput
-      senderAction: SenderAction
-    ): MutationOfConversation
-  }
+    type Mutation {
+        createConversation(userIds: [ObjectID!]!): MutationOfConversation
+        sendMessage(
+            recipient: RecipientInput!
+            message: MessageInput
+            senderAction: SenderAction
+        ): MutationOfConversation
+    }
 
-  type Subscription {
-    conversationUpdated(conversationId: ObjectID): Conversation
-  }
+    type Subscription {
+        conversationUpdated(conversationId: ObjectID): Conversation
+    }
 
-  ${ConversationTypeDefs}
-  ${MessageTypeDefs}
-  ${CallInAppLoginInfoTypeDefs}
+    ${ConversationTypeDefs}
+    ${MessageTypeDefs}
+    ${CallInAppLoginInfoTypeDefs}
 `;
