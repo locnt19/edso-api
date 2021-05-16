@@ -55,11 +55,7 @@ export const typeDefs = gql`
         "List conversation"
         conversations(offset: Int, limit: Int): PaginationOfConversation
         "List messages of a conversation"
-        messages(
-            conversationId: ObjectID!
-            offset: Int
-            limit: Int
-        ): PaginationOfMessage
+        messages(conversationId: ObjectID!, offset: Int, limit: Int): PaginationOfMessage
         "Get call in app login info"
         callInAppLoginInfo: CallInAppLoginInfo
         callInAppUserExtension(userId: ObjectID!): CallInAppUserExtension

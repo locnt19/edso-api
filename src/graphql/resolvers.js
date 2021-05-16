@@ -4,12 +4,9 @@ import {
     DateTimeResolver,
     DateResolver,
     URLResolver,
-    JSONObjectResolver,
+    JSONObjectResolver
 } from 'graphql-scalars';
-import {
-    conversations,
-    messages,
-} from './queries';
+import { conversations, messages } from './queries';
 import { sendMessage, createConversation } from './mutations';
 import { conversationUpdated } from './subscriptions';
 import { ConversationResolver } from './types/Conversation';
@@ -19,14 +16,14 @@ import { CallInAppLoginInfoResolver } from './types/CallInAppLoginInfo';
 export const resolvers = {
     Query: {
         conversations,
-        messages,
+        messages
     },
     Mutation: {
         sendMessage,
-        createConversation,
+        createConversation
     },
     Subscription: {
-        conversationUpdated,
+        conversationUpdated
     },
     Conversation: ConversationResolver,
     Message: MessageResolver,
@@ -36,5 +33,5 @@ export const resolvers = {
     EmailAddress: EmailAddressResolver,
     DateTime: DateTimeResolver,
     Date: DateResolver,
-    URL: URLResolver,
+    URL: URLResolver
 };
