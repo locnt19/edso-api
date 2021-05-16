@@ -55,10 +55,10 @@ export const ConversationResolver = {
     lastMessage: (instance) => {
         if (isUndefined(instance.lastMessage)) {
             return MessageModel.findOne({ conversationId: instance.id }).sort({
-                createdAt: -1,
+                createdAt: -1
             });
         }
         return instance.lastMessage;
     },
-    typing: (instance) => instance.typing || false,
+    typing: (instance) => instance.typing || false
 };

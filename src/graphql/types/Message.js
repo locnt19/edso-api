@@ -83,5 +83,5 @@ export const MessageTypeDefs = gql`
 `;
 
 export const MessageResolver = {
-    id: (instance) => instance.id || instance._id,
+    id: (instance) => instance.id || instance._id
 };

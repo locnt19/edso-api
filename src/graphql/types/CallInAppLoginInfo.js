@@ -38,5 +38,5 @@ export const CallInAppLoginInfoTypeDefs = gql`
 `;
 
 export const CallInAppLoginInfoResolver = {
-    id: (instance) => instance.id || instance._id,
+    id: (instance) => instance.id || instance._id
 };

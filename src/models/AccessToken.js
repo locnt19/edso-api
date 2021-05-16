@@ -8,9 +8,9 @@ const accessTokenSchema = new Schema(
         device: String,
         ip: String,
         deactivatedAt: Date,
-        lastSeenAt: Date,
+        lastSeenAt: Date
     },
-    { timestamps: true },
+    { timestamps: true }
 );
 
 const AccessTokenModel = mongoose.model('AccessToken', accessTokenSchema);
