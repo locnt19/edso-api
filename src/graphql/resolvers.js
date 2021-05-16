@@ -6,28 +6,18 @@ import {
     URLResolver,
     JSONObjectResolver
 } from 'graphql-scalars';
-import { conversations, messages } from './queries';
-import { sendMessage, createConversation } from './mutations';
-import { conversationUpdated } from './subscriptions';
-import { ConversationResolver } from './types/Conversation';
-import { MessageResolver } from './types/Message';
-import { CallInAppLoginInfoResolver } from './types/CallInAppLoginInfo';
 
 export const resolvers = {
     Query: {
-        conversations,
-        messages
+        someQuery: (root, args, context, info) => {
+            return 'Some Query Is Awesome';
+        }
     },
     Mutation: {
-        sendMessage,
-        createConversation
+        someMutation: (root, args, context, info) => {
+            return args.text;
+        }
     },
-    Subscription: {
-        conversationUpdated
-    },
-    Conversation: ConversationResolver,
-    Message: MessageResolver,
-    CallInAppLoginInfo: CallInAppLoginInfoResolver,
     ObjectID: ObjectIDResolver,
     JSONObject: JSONObjectResolver,
     EmailAddress: EmailAddressResolver,

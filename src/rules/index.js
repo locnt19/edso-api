@@ -14,10 +14,12 @@ const isAuthenticated = rule()(async (rootValue, args, context) => {
 export const permissions = shield(
     {
         Query: {
-            '*': isAuthenticated
+            // TODO: Remove comments below as development
+            // '*': isAuthenticated
         },
         Mutation: {
-            '*': isAuthenticated
+            // TODO: Remove comments below as development
+            // '*': isAuthenticated
         }
     },
     {
