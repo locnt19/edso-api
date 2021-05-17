@@ -4,7 +4,7 @@ export async function authReq(context) {
     const { req } = context;
     try {
         const {
-            headers: { authorization },
+            headers: { authorization }
         } = req;
         if (!authorization) {
             return;
@@ -17,6 +17,6 @@ export async function authReq(context) {
         context.user = user;
         context.accessToken = accessToken;
     } catch (e) {
-        // Ignore error
+        // TODO: Catch error
     }
 }

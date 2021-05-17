@@ -11,7 +11,7 @@ const DB_HOST = process.env.DB_HOST || 'localhost',
     LOGIN_DB = DB_USERNAME && DB_PASSWORD ? `${DB_USERNAME}:${DB_PASSWORD}@` : '',
     DB_USE_SRV = process.env.DB_USE_SRV;
 
-mongoose.connection.on('open', () => console.log('Mongo DB connected'));
+mongoose.connection.on('open', () => console.log('🚀 Mongo DB connected'));
 
 mongoose.plugin(require('@meanie/mongoose-to-json'));
 
@@ -27,6 +27,7 @@ export async function connectMongoDb() {
             useUnifiedTopology: true,
             connectTimeoutMS: 5000,
             useFindAndModify: false,
-        },
+            useCreateIndex: true
+        }
     );
 }

@@ -1,26 +1,20 @@
 import jwt from 'jsonwebtoken';
-import moment from 'moment';
 import UserModel from '../models/User';
 import AccessTokenModel from '../models/AccessToken';
 import basicAuth from 'basic-auth';
-import { Types } from 'mongoose';
 import { UserInputError } from 'apollo-server-express';
 
 export async function basicAuthenticationMiddleware(req, res, next) {
     try {
         const {
-            headers: { authorization },
+            headers: { authorization }
         } = req;
         if (!authorization) {
             return next();
         }
         const authUser = basicAuth(req);
         let username = process.env.USER_NAME;
-        if (
-            authUser &&
-            authUser.name === username &&
-            authUser.pass === process.env.PASSWORD
-        ) {
+        if (authUser && authUser.name === username && authUser.pass === process.env.PASSWORD) {
             req.basicAuthenticated = true;
         }
         next();
@@ -32,7 +26,7 @@ export async function basicAuthenticationMiddleware(req, res, next) {
 export async function authenticationMiddleware(req, res, next) {
     try {
         const {
-                headers: { authorization },
+                headers: { authorization }
             } = req,
             system = req.headers['x-system'];
         req.system = system;
@@ -47,25 +41,19 @@ export async function authenticationMiddleware(req, res, next) {
         }
         const jwtToken = await AccessTokenModel.findOne({
             token: accessToken,
-            isActive: true,
+            isActive: true
         });
         if (!jwtToken) {
             return next();
         }
         let user = await UserModel.findById(decoded.userId);
-        await redis.set(
-            `user_last_online_${decoded.userId}`,
-            moment().format(),
-            'ex',
-            300,
-        );
         if (!user) {
             return next();
         }
         Object.assign(req, {
             user,
             accessToken,
-            system,
+            system
         });
         return next();
     } catch (e) {
@@ -81,24 +69,18 @@ export const verifyToken = async (rootValue, { accessToken }, { t }) => {
         }
         const jwtToken = await AccessTokenModel.findOne({
             token: accessToken,
-            isActive: true,
+            isActive: true
         });
         if (!jwtToken) {
             return new UserInputError(t('invalidToken'));
         }
         let user = await UserModel.findById(decoded.userId);
-        await redis.set(
-            `user_last_online_${decoded.userId}`,
-            moment().format(),
-            'ex',
-            300,
-        );
         if (!user) {
             return new UserInputError(t('userNotFound'));
         }
         Object.assign(t, {
             user,
-            accessToken,
+            accessToken
         });
         return user;
     } catch (e) {
