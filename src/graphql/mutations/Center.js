@@ -2,9 +2,23 @@ import { CenterModel } from '../../models/Center';
 
 export const createCenter = async (parent, args, context, info) => {
     try {
-        return args.input;
+        const center = CenterModel(args.input);
+
+        if (center) {
+            center.hash = center._id + '_fakeHash';
+
+            if (center.timeShift && center.timeShift.length) {
+                center.timeShift.forEach((e) => {
+                    e.hash = e._id + '_fakeHash';
+                });
+            }
+            await center.save();
+
+            return center;
+        } else {
+            throw new Error('Cant create Center Model.');
+        }
     } catch (error) {
-        console.log('> createCenter error: ', error);
-        throw new ApolloError('Error saving center.');
+        return error;
     }
 };

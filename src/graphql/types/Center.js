@@ -2,6 +2,7 @@ import { gql } from 'apollo-server-express';
 
 export const CenterDefs = gql`
     type TimeShift {
+        hash: String!
         from: String!
         to: String!
     }
@@ -12,16 +13,17 @@ export const CenterDefs = gql`
     }
 
     type Center {
-        _id: ObjectID!
-        name: String!
-        phone: String!
-        email: String!
+        hash: String!
+        name: String
+        phone: String
+        email: String
         address: String
         website: String
-        logo: String!
-        type: String!
-        status: String!
+        logo: String
+        type: String
+        status: String
         subscribeLetter: Boolean
+        termsAndConditions: String
         timeShift: [TimeShift]
     }
 
@@ -35,6 +37,7 @@ export const CenterDefs = gql`
         type: String!
         status: String!
         subscribeLetter: Boolean
+        termsAndConditions: String
         timeShift: [TimeShiftInput]
     }
 `;
