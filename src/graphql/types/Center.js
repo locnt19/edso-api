@@ -1,5 +1,7 @@
 import { gql } from 'apollo-server-express';
 
+import { PaginateDefs } from './Paginate';
+
 export const CenterDefs = gql`
     type TimeShift {
         hash: String!
@@ -25,6 +27,11 @@ export const CenterDefs = gql`
         subscribeLetter: Boolean
         termsAndConditions: String
         timeShift: [TimeShift]
+    }
+
+    type CenterPaginate {
+        docs: [Center]
+        ${PaginateDefs}
     }
 
     input CenterInput {

@@ -7,7 +7,7 @@ import {
     JSONObjectResolver
 } from 'graphql-scalars';
 
-import { allCenter } from './queries';
+import { getCenter } from './queries';
 import { createCenter } from './mutations';
 
 export const resolvers = {
@@ -15,7 +15,7 @@ export const resolvers = {
         someQuery: (root, args, context, info) => {
             return 'Some Query Is Awesome';
         },
-        allCenter
+        getCenter
     },
     Mutation: {
         someMutation: (root, args, context, info) => {

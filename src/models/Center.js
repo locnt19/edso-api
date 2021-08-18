@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
+import mongoosePaginate from 'mongoose-paginate-v2';
 
 const centerSchema = new Schema(
     {
@@ -23,6 +24,8 @@ const centerSchema = new Schema(
     },
     { timestamps: true }
 );
+
+centerSchema.plugin(mongoosePaginate);
 
 const collectionName = 'Center';
 
