@@ -22,7 +22,7 @@ export const typeDefs = gql`
 
     type Mutation {
         someMutation(text: String): String
-        createCenter(input: CenterInput!): Center
+        createCenter(input: CenterCreateInput!): Center
     }
 
     ${CenterDefs}

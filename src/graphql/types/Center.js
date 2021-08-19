@@ -51,7 +51,7 @@ export const CenterDefs = gql`
         ${PaginateTemplate}
     }
 
-    input CenterInput {
+    input CenterCreateInput {
         ${CenterCreateTemplate}
         timeShift: [TimeShiftInput]
     }
