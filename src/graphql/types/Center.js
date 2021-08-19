@@ -1,12 +1,38 @@
 import { gql } from 'apollo-server-express';
 
-import { PaginateDefs } from './Paginate';
+import { HashMustHave, HashOptional, PaginateTemplate } from './index';
+
+const CenterTemplate = `
+    name: String
+    phone: String
+    email: String
+    address: String
+    website: String
+    logo: String
+    type: String
+    status: String
+    subscribeLetter: Boolean
+    termsAndConditions: String
+`;
+
+const CenterCreateTemplate = `
+    name: String!
+    phone: String!
+    email: String!
+    address: String
+    website: String
+    logo: String!
+    type: String!
+    status: String!
+    subscribeLetter: Boolean
+    termsAndConditions: String
+`;
 
 export const CenterDefs = gql`
     type TimeShift {
-        hash: String!
-        from: String!
-        to: String!
+        ${HashOptional}
+        from: String
+        to: String
     }
 
     input TimeShiftInput {
@@ -15,36 +41,30 @@ export const CenterDefs = gql`
     }
 
     type Center {
-        hash: String!
-        name: String
-        phone: String
-        email: String
-        address: String
-        website: String
-        logo: String
-        type: String
-        status: String
-        subscribeLetter: Boolean
-        termsAndConditions: String
+        ${HashOptional}
+        ${CenterTemplate}
         timeShift: [TimeShift]
     }
 
     type CenterPaginate {
         docs: [Center]
-        ${PaginateDefs}
+        ${PaginateTemplate}
     }
 
     input CenterInput {
-        name: String!
-        phone: String!
-        email: String!
-        address: String
-        website: String
-        logo: String!
-        type: String!
-        status: String!
-        subscribeLetter: Boolean
-        termsAndConditions: String
+        ${CenterCreateTemplate}
+        timeShift: [TimeShiftInput]
+    }
+
+    input CenterUpdateInput {
+        ${HashMustHave}
+        ${CenterTemplate}
+        timeShift: [TimeShiftInput]
+    }
+
+    input CenterFilter {
+        ${HashOptional}
+        ${CenterTemplate}
         timeShift: [TimeShiftInput]
     }
 `;
