@@ -17,7 +17,10 @@ export const typeDefs = gql`
 
     type Query {
         someQuery: String
-        getCenter(paginate: PaginateInput, filter: CenterFilter): CenterPaginate
+        getCenter(
+            paginate: PaginateInput
+            filter: CenterFilterInput
+        ): CenterPaginate
     }
 
     type Mutation {

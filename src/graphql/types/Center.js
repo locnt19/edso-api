@@ -28,16 +28,34 @@ const CenterCreateTemplate = `
     termsAndConditions: String
 `;
 
+const TimeShiftTemplate = `
+    from: String
+    to: String
+    `;
+
+const TimeShiftCreateTempolate = `
+    from: String!
+    to: String!
+`;
+
 export const CenterDefs = gql`
     type TimeShift {
         ${HashOptional}
-        from: String
-        to: String
+        ${TimeShiftTemplate}
     }
 
-    input TimeShiftInput {
-        from: String!
-        to: String!
+    input TimeShiftCreateInput {
+        ${TimeShiftCreateTempolate}
+    }
+
+    input TimeShiftUpdateInput {
+        ${HashMustHave}
+        ${TimeShiftTemplate}
+    }
+
+    input TimeShiftFilterInput {
+        ${HashOptional}
+        ${TimeShiftTemplate}
     }
 
     type Center {
@@ -53,18 +71,18 @@ export const CenterDefs = gql`
 
     input CenterCreateInput {
         ${CenterCreateTemplate}
-        timeShift: [TimeShiftInput]
+        timeShift: [TimeShiftCreateInput]
     }
 
     input CenterUpdateInput {
         ${HashMustHave}
         ${CenterTemplate}
-        timeShift: [TimeShiftInput]
+        timeShift: [TimeShiftUpdateInput]
     }
 
-    input CenterFilter {
+    input CenterFilterInput {
         ${HashOptional}
         ${CenterTemplate}
-        timeShift: [TimeShiftInput]
+        timeShift: TimeShiftFilterInput
     }
 `;
