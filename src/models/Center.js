@@ -3,7 +3,7 @@ import mongoosePaginate from 'mongoose-paginate-v2';
 
 const centerSchema = new Schema(
     {
-        hash: { type: String, required: true },
+        hash: { type: String, required: true, unique: true },
         name: { type: String, required: true },
         phone: { type: String, required: true },
         email: { type: String, required: true, unique: true },
@@ -16,7 +16,7 @@ const centerSchema = new Schema(
         termsAndConditions: { type: String },
         timeShift: [
             {
-                hash: { type: String, required: true },
+                hash: { type: String, required: true, unique: true },
                 from: { type: String, required: true },
                 to: { type: String, required: true }
             }
