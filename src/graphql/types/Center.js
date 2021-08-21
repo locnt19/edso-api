@@ -40,6 +40,7 @@ const TimeShiftCreateTempolate = `
 
 export const CenterDefs = gql`
     type TimeShift {
+        _id: ObjectID
         ${HashOptional}
         ${TimeShiftTemplate}
     }
@@ -59,6 +60,7 @@ export const CenterDefs = gql`
     }
 
     type Center {
+        _id: ObjectID
         ${HashOptional}
         ${CenterTemplate}
         timeShift: [TimeShift]

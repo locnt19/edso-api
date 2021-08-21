@@ -1,23 +1,27 @@
 import mongoose from 'mongoose';
+import Hashids from 'hashids';
 import { CenterModel } from '../../models/Center';
+
+const salt = 'edso_team';
+const hashids = new Hashids(salt);
 
 export const createCenter = async (parent, args, context, info) => {
     try {
         const center = CenterModel(args.input);
 
         if (center) {
-            center.hash = center._id + '_fakeHash';
+            center.hash = _generateHashFromId(center._id);
 
             if (center.timeShift && center.timeShift.length) {
                 center.timeShift.forEach((e) => {
-                    e.hash = e._id + '_fakeHash';
+                    e.hash = _generateHashFromId(e._id);
                 });
             }
             await center.save();
 
             return center;
         } else {
-            throw new Error('Cant create Center Model.');
+            throw new Error('Can not create Center.');
         }
     } catch (error) {
         return error;
@@ -42,7 +46,9 @@ export const updateCenter = async (parent, args, context, info) => {
                 center.timeShift = timeShift.map((e) => {
                     if (!e.hash) {
                         e._id = mongoose.Types.ObjectId();
-                        e.hash = e._id + '_fakeHash';
+                        e.hash = _generateHashFromId(e._id);
+                    } else {
+                        e._id = _generateIdFromHash(e.hash);
                     }
 
                     return e;
@@ -58,3 +64,11 @@ export const updateCenter = async (parent, args, context, info) => {
         return error;
     }
 };
+
+function _generateHashFromId(id) {
+    return hashids.encodeHex(id.toString());
+}
+
+function _generateIdFromHash(hash) {
+    return mongoose.Types.ObjectId(hashids.decodeHex(hash));
+}
