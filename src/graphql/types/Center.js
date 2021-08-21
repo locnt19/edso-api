@@ -49,7 +49,7 @@ export const CenterDefs = gql`
     }
 
     input TimeShiftUpdateInput {
-        ${HashMustHave}
+        ${HashOptional}
         ${TimeShiftTemplate}
     }
 
