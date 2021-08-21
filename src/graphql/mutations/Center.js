@@ -33,13 +33,9 @@ export const updateCenter = async (parent, args, context, info) => {
 
         if (input) {
             const center = await CenterModel.findOneAndUpdate(
-                {
-                    hash: input.hash
-                },
+                { hash: input.hash },
                 input,
-                {
-                    new: true
-                }
+                { new: true }
             );
 
             if (timeShift && timeShift.length) {
