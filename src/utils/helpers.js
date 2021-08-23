@@ -4,7 +4,11 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { ApolloServer } from 'apollo-server-express';
 import { introspectionPlugin } from './graphql';
-import { Types } from 'mongoose';
+import mongoose from 'mongoose';
+import Hashids from 'hashids';
+
+const salt = 'edso_team';
+const hashids = new Hashids(salt);
 
 const isProduction = process.env.NODE_ENV === 'production';
 dotenv.config();
@@ -17,7 +21,7 @@ export const paginationLabelsOptions = {
     next: 'nextPage',
     prev: 'prevPage',
     pageCount: 'totalPages',
-    slNo: 'pagingCounter',
+    slNo: 'pagingCounter'
 };
 
 export function createApolloExpressServer(apolloServerExpressConfig = {}) {
@@ -30,13 +34,13 @@ export function createApolloExpressServer(apolloServerExpressConfig = {}) {
             introspectionPlugin({
                 type: 'header-token',
                 name: 'x-app-introspect-auth', // header name
-                value: [process.env.INTROSPECTION_TOKEN], // valid header values
-            }),
+                value: [process.env.INTROSPECTION_TOKEN] // valid header values
+            })
         );
     }
     return new ApolloServer({
         ...apolloServerExpressConfig,
-        plugins: [...apolloPlugins, ...additionalPlugins],
+        plugins: [...apolloPlugins, ...additionalPlugins]
     });
 }
 
@@ -48,12 +52,12 @@ export function createI18nMiddleware(configs) {
     i18next.use(i18nextMiddleware.LanguageDetector).init({
         detection: {
             order: ['header'],
-            lookupHeader: 'accept-language',
+            lookupHeader: 'accept-language'
         },
         preload: configs.map((e) => e.code),
         whitelist: configs.map((e) => e.code),
         fallbackLng: 'en',
-        resources,
+        resources
     });
     return i18nextMiddleware.handle(i18next);
 }
@@ -75,4 +79,12 @@ export function sdkAuthMiddleware(req, res, next) {
     } catch (e) {
         return next();
     }
+}
+
+export function generateHashFromId(id) {
+    return hashids.encodeHex(id.toString());
+}
+
+export function generateIdFromHash(hash) {
+    return mongoose.Types.ObjectId(hashids.decodeHex(hash));
 }
