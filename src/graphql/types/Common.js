@@ -5,3 +5,7 @@ export const HashOptional = `
 export const HashMustHave = `
     hash: String!
 `;
+
+export const IdOptional = `
+    _id: ObjectID
+`;
