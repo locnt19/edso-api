@@ -88,3 +88,23 @@ export function generateHashFromId(id) {
 export function generateIdFromHash(hash) {
     return mongoose.Types.ObjectId(hashids.decodeHex(hash));
 }
+
+export function changeObjectToDotNotationFormat(
+    inputObject,
+    current,
+    prefinalObject
+) {
+    const result = prefinalObject ?? {};
+
+    for (const key in inputObject) {
+        const value = inputObject[key];
+        const newKey = current ? `${current}.${key}` : key;
+        if (value && typeof value === 'object') {
+            changeObjectToDotNotationFormat(value, newKey, result);
+        } else {
+            result[newKey] = value;
+        }
+    }
+
+    return result;
+}
