@@ -1,6 +1,10 @@
 import { gql } from 'apollo-server-express';
 
-import { CenterDefs, PaginateDefs } from './types';
+import {
+    CenterDefs,
+    ClassDefs,
+    PaginateDefs
+} from './types';
 
 export const typeDefs = gql`
     scalar ObjectID
@@ -21,14 +25,19 @@ export const typeDefs = gql`
             paginate: PaginateInput
             filter: CenterFilterInput
         ): CenterPaginate
+        getClass(
+            paginate: PaginateInput
+        ): ClassPaginate
     }
 
     type Mutation {
         someMutation(text: String): String
         createCenter(input: CenterCreateInput!): Center
         updateCenter(input: CenterUpdateInput!): Center
+        createClass(input: ClassCreateInput!): Class
     }
 
     ${CenterDefs}
+    ${ClassDefs}
     ${PaginateDefs}
 `;

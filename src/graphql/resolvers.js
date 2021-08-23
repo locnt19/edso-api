@@ -7,22 +7,29 @@ import {
     JSONObjectResolver
 } from 'graphql-scalars';
 
-import { getCenter } from './queries';
-import { createCenter, updateCenter } from './mutations';
+import { getCenter, getClass } from './queries';
+
+import {
+    createCenter,
+    updateCenter,
+    createClass,
+} from './mutations';
 
 export const resolvers = {
     Query: {
         someQuery: (root, args, context, info) => {
             return 'Some Query Is Awesome';
         },
-        getCenter
+        getCenter,
+        getClass
     },
     Mutation: {
         someMutation: (root, args, context, info) => {
             return args.text;
         },
         createCenter,
-        updateCenter
+        updateCenter,
+        createClass,
     },
     ObjectID: ObjectIDResolver,
     JSONObject: JSONObjectResolver,
