@@ -13,6 +13,7 @@ import {
     createCenter,
     updateCenter,
     createClass,
+    updateClass
 } from './mutations';
 
 export const resolvers = {
@@ -30,6 +31,7 @@ export const resolvers = {
         createCenter,
         updateCenter,
         createClass,
+        updateClass
     },
     ObjectID: ObjectIDResolver,
     JSONObject: JSONObjectResolver,

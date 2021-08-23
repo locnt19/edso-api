@@ -81,4 +81,12 @@ export const ClassDefs = gql`
         timeFrame: [ClassTimeFrameInput]
         studentReport: [ClassStudentReportInput]
     }
+
+    input ClassUpdateInput {
+        ${HashMustHave}
+        ${ClassTemplate}
+        students: [ClassStudentInput]
+        timeFrame: [ClassTimeFrameInput]
+        studentReport: [ClassStudentReportInput]
+    }
 `;

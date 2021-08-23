@@ -35,6 +35,7 @@ export const typeDefs = gql`
         createCenter(input: CenterCreateInput!): Center
         updateCenter(input: CenterUpdateInput!): Center
         createClass(input: ClassCreateInput!): Class
+        updateClass(input: ClassUpdateInput!): Class
     }
 
     ${CenterDefs}
