@@ -2,3 +2,8 @@ export * from './Common';
 export * from './Paginate';
 export * from './Center';
 export * from './Class';
+export * from './BaseUser';
+export * from './AccessToken';
+export * from './Teacher';
+export * from './Admin';
+export * from './Student';

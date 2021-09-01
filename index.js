@@ -7,8 +7,7 @@ import {
     generateIpFromReq
 } from './src/utils';
 import {
-    authenticationMiddleware,
-    basicAuthenticationMiddleware
+    authenticationMiddleware
 } from './src/middleware/authentication';
 import { makeExecutableSchema } from 'apollo-server-express';
 import express from 'express';
@@ -33,7 +32,6 @@ app.use(
     useragent.express(),
     morgan('dev'),
     authenticationMiddleware,
-    basicAuthenticationMiddleware,
     createI18nMiddleware([
         { code: 'en', config: require('./src/utils/i18n/en.json') },
         { code: 'vi', config: require('./src/utils/i18n/vi.json') }
@@ -53,7 +51,7 @@ const apolloServer = createApolloExpressServer({
     introspection: true,
     subscriptions: {
         path: `/${servicePath}/graphql/subscriptions`,
-        onConnect: (connectionParams) => {}
+        onConnect: (connectionParams) => { }
     },
     context: async ({ req, res, connection }) => {
         if (connection) {
@@ -64,7 +62,8 @@ const apolloServer = createApolloExpressServer({
             req,
             useragent: req.useragent,
             res,
-            ip: generateIpFromReq(req)
+            ip: generateIpFromReq(req),
+            user: req.headers.user ? req.headers.user : null
         };
     }
 });
@@ -82,5 +81,9 @@ httpServer.listen(PORT, async () => {
     console.log(
         `🚀 Subscriptions ready at ws://localhost:${PORT}${apolloServer.subscriptionsPath}`
     );
-    await connectMongoDb();
+    try {
+        await connectMongoDb();
+    } catch (e) {
+        return e;
+    }
 });

@@ -3,7 +3,12 @@ import { gql } from 'apollo-server-express';
 import {
     CenterDefs,
     ClassDefs,
-    PaginateDefs
+    PaginateDefs,
+    BaseUserDefs,
+    AdminDefs,
+    TeacherDefs,
+    StudentDefs,
+    AccessTokenDefs
 } from './types';
 
 export const typeDefs = gql`
@@ -19,6 +24,20 @@ export const typeDefs = gql`
 
     scalar URL
 
+    enum Role {
+        Admin
+        Manager
+        Support
+        Teacher
+        Student
+    }
+
+    enum Level {
+        Bachelor
+        Master
+        PhD
+    }
+
     type Query {
         someQuery: String
 
@@ -31,6 +50,7 @@ export const typeDefs = gql`
             paginate: PaginateInput
             filter: ClassFilterInput
         ): ClassPaginate
+        getMe: BaseUser
     }
 
     type Mutation {
@@ -41,6 +61,15 @@ export const typeDefs = gql`
 
         createClass(input: ClassCreateInput!): MutationOfClass
         updateClass(input: ClassUpdateInput!): MutationOfClass
+
+        deactivateAccount(email: String!): MutationOfBaseUser
+
+        registerAdmin(adminInfo: AdminRegisterInput!): MutationOfAdmin
+        registerTeacher(teacherInfo: TeacherRegisterInput!): MutationOfTeacher
+        registerStudent(studentInfo: StudentRegisterInput!): MutationOfStudent
+
+        loginUser(email: String!, password: String!): MutationOfAccessToken
+        logoutUser: MutationOfAccessToken
     }
 
     interface MutationOf {
@@ -49,8 +78,12 @@ export const typeDefs = gql`
         "Mutation message"
         msg: String
     }
-
     ${CenterDefs}
     ${ClassDefs}
     ${PaginateDefs}
+    ${BaseUserDefs}
+    ${AdminDefs}
+    ${TeacherDefs}
+    ${StudentDefs}
+    ${AccessTokenDefs}
 `;

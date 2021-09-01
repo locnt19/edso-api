@@ -1,12 +1,17 @@
-import { rule, shield } from 'graphql-shield';
+import { rule, shield, and, or, allow } from 'graphql-shield';
 import { AuthenticationError } from 'apollo-server-express';
-import { authReq } from './auth';
+import { registerAdmin } from '../graphql/mutations';
 
-const isAuthenticated = rule()(async (rootValue, args, context) => {
-    const { t } = context;
-    await authReq(context);
+const isAuthenticated = rule()(async (rootValue, args, context, info) => {
     if (!context.user) {
-        return new AuthenticationError(t('unauthenticated'));
+        return new AuthenticationError('Please login');
+    }
+    return true;
+});
+
+const isSuperAdmin = rule()(async (rootValue, args, context, info) => {
+    if (context.user.role !== 'Admin') {
+        return new AuthenticationError('Unauthorized Access');
     }
     return true;
 });
@@ -15,11 +20,18 @@ export const permissions = shield(
     {
         Query: {
             // TODO: Remove comments below as development
-            // '*': isAuthenticated
+            '*': isAuthenticated,
+            getCenter: and(isAuthenticated, isSuperAdmin),
+            getClass: and(isAuthenticated, isSuperAdmin),
+            getMe: isAuthenticated
         },
         Mutation: {
             // TODO: Remove comments below as development
-            // '*': isAuthenticated
+            '*': isAuthenticated,
+            loginUser: allow,
+            registerAdmin: allow,
+            deactivateAccount: and(isAuthenticated, isSuperAdmin),
+            registerTeacher: and(isAuthenticated, isSuperAdmin)
         }
     },
     {
