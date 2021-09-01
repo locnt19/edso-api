@@ -5,18 +5,18 @@ import {
     createI18nMiddleware,
     createApolloExpressServer,
     generateIpFromReq
-} from './src/utils';
+} from './utils';
 import {
     authenticationMiddleware
-} from './src/middleware/authentication';
+} from './middleware/authentication';
 import { makeExecutableSchema } from 'apollo-server-express';
 import express from 'express';
 import morgan from 'morgan';
-import { resolvers, typeDefs } from './src/graphql';
+import { resolvers, typeDefs } from './graphql';
 import cors from 'cors';
 import useragent from 'express-useragent';
 import { applyMiddleware } from 'graphql-middleware';
-import { permissions } from './src/rules';
+import { permissions } from './rules';
 
 dotenv.config();
 
@@ -33,8 +33,8 @@ app.use(
     morgan('dev'),
     authenticationMiddleware,
     createI18nMiddleware([
-        { code: 'en', config: require('./src/utils/i18n/en.json') },
-        { code: 'vi', config: require('./src/utils/i18n/vi.json') }
+        { code: 'en', config: require('./utils/i18n/en.json') },
+        { code: 'vi', config: require('./utils/i18n/vi.json') }
     ])
 );
 

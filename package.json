@@ -4,8 +4,8 @@
     "license": "MIT",
     "main": "index.js",
     "scripts": {
-        "start": "nodemon --exec babel-node index.js",
-        "prd": "NODE_ENV=production babel-node index.js"
+        "start": "nodemon --exec babel-node src/index.js",
+        "prd": "NODE_ENV=production babel-node src/index.js"
     },
     "dependencies": {
         "@meanie/mongoose-to-json": "^2.5.0",
