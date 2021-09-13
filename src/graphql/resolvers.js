@@ -10,7 +10,9 @@ import {
 import {
     getCenter,
     getClass,
-    getMe
+    getMe,
+    getUserById,
+    getListUser
 } from './queries';
 
 import {
@@ -22,11 +24,14 @@ import {
     deactivateAccount,
     registerTeacher,
     registerStudent,
+    registerManager,
+    registerSupport,
     loginUser,
-    logoutUser
+    logoutUser,
+    updateUser
 } from './mutations';
 
-import { BaseUserResolver } from './types';
+import { BaseUserResolver, UserResolver } from './types';
 
 export const resolvers = {
     Query: {
@@ -35,7 +40,9 @@ export const resolvers = {
         },
         getCenter,
         getClass,
-        getMe
+        getMe,
+        getUserById,
+        getListUser
     },
     Mutation: {
         someMutation: (root, args, context, info) => {
@@ -49,8 +56,11 @@ export const resolvers = {
         deactivateAccount,
         registerTeacher,
         registerStudent,
+        registerManager,
+        registerSupport,
         loginUser,
-        logoutUser
+        logoutUser,
+        updateUser
     },
     BaseUser: BaseUserResolver,
     ObjectID: ObjectIDResolver,

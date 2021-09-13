@@ -6,16 +6,17 @@ import {
     HashOptional,
     PaginateTemplate,
     BaseUserTemplate,
-    BaseUserRegisterInputTemplate
+    BaseUserRegisterInputTemplate,
+    BaseUserUpdateInputTemplate
 } from './index';
 
 const StudentInfoTemplate = `
-    schoolID: String
+    schoolId: String
     classIDs: [ObjectID]
 `;
 
 const StudentInfoInputTemplate = `
-    schoolID: String!
+    schoolId: String
     classIDs: [ObjectID]
 `;
 
@@ -28,6 +29,11 @@ export const StudentDefs = gql`
 
     input StudentRegisterInput {
         ${BaseUserRegisterInputTemplate}
+        ${StudentInfoInputTemplate}
+    }
+
+    input StudentUpdateInput {
+        ${BaseUserUpdateInputTemplate}
         ${StudentInfoInputTemplate}
     }
 

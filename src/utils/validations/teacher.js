@@ -1,13 +1,16 @@
 import Joi from 'joi';
-import { baseUserRegisterInputSchema } from '.';
+import { baseUserRegisterInputSchema, baseUserUpdateInputSchema } from '.';
 
 export const teacherRegisterInputSchema = baseUserRegisterInputSchema.keys({
+    schoolId: Joi.string().required(),
     level: Joi.valid('Bachelor', 'Master', 'PhD').required(),
-    classIDs: Joi.array().items(Joi.string()),
+    classIds: Joi.array().items(Joi.string()),
+    subjects: Joi.array().items(Joi.string().required()),
     workPlace: Joi.string().required()
 })
 
-export const teacherUpdateInputSchema = baseUserRegisterInputSchema.keys({
+export const teacherUpdateInputSchema = baseUserUpdateInputSchema.keys({
     level: Joi.valid('Bachelor', 'Master', 'PhD').optional(),
-    classIDs: Joi.array().items(Joi.string())
+    subjects: Joi.array().items(Joi.string().required()),
+    workPlace: Joi.string().required()
 })

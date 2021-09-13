@@ -2,7 +2,8 @@ import { Schema } from 'mongoose';
 import BaseUser from './BaseUser';
 
 const StudentSchema = new Schema({
-    reports: { type: [Schema.Types.ObjectId] }
+    schoolId: { type: String, required: true },
+    classIds: { type: [Schema.Types.ObjectId] }
 })
 
 const Student = BaseUser.discriminator('Student', StudentSchema);

@@ -9,3 +9,4 @@ export const HashMustHave = `
 export const IdOptional = `
     _id: ObjectID
 `;
+

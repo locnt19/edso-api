@@ -10,50 +10,44 @@ import {
     BaseUserUpdateInputTemplate
 } from './index';
 
-const TeacherInfoTemplate = `
+const ManagerInfoTemplate = `
     schoolId: String
-    level: Level
-    workPlace: String
-    subjects: [String]
-    classIds: [ObjectID]
+    info: String
 `;
 
-const TeacherInfoInputTemplate = `
+const ManagerInfoInputTemplate = `
     schoolId: String!
-    level: Level!
-    workPlace: String!
-    subjects: [String!]
-    classIds: [ObjectID]
+    info: String
 `;
 
-export const TeacherDefs = gql`
-    type Teacher implements BaseUser {
+export const ManagerDefs = gql`
+    type Manager implements BaseUser {
         ${BaseUserTemplate}
-        ${TeacherInfoTemplate}
+        ${ManagerInfoTemplate}
         ${HashMustHave}
     }
 
-    input TeacherRegisterInput {
+    input ManagerRegisterInput {
         ${BaseUserRegisterInputTemplate}
-        ${TeacherInfoInputTemplate}
+        ${ManagerInfoInputTemplate}
     }
 
-    input TeacherUpdateInput {
+    input ManagerUpdateInput {
         ${BaseUserUpdateInputTemplate}
-        ${TeacherInfoInputTemplate}
+        ${ManagerInfoInputTemplate}
     }
 
-    type TeacherPaginate {
-        docs: [Teacher]
+    type ManagerPaginate {
+        docs: [Manager]
         ${PaginateTemplate}
     }
 
-    type MutationOfTeacher implements MutationOf {
+    type MutationOfManager implements MutationOf {
         "Mutation result"
         success: Boolean
         "Mutation message"
         msg: String
         "CallInAppLoginInfo"
-        payload: Teacher
+        payload: Manager
     }
 `;

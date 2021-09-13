@@ -21,18 +21,17 @@ export const baseUserRegisterInputSchema = Joi.object().keys({
 export const baseUserUpdateInputSchema = Joi.object().keys({
     password: Joi.string()
         .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
-        .optional(),
-    fullName: Joi.string().min(5).max(90).optional(),
-    birthDate: Joi.date().optional(),
-    gender: Joi.valid('M', 'F').optional(),
+        .forbidden(),
+    fullName: Joi.string().min(5).max(90),
+    birthDate: Joi.date(),
+    gender: Joi.valid('M', 'F'),
     email: Joi.string()
         .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
         .trim()
-        .lowercase()
-        .optional(),
-    phone: Joi.string().optional(),
-    address: Joi.string().optional(),
+        .lowercase(),
+    phone: Joi.string(),
+    address: Joi.string(),
     schoolID: Joi.string().forbidden(),
-    avatar: Joi.string().optional(),
+    avatar: Joi.string(),
     isActive: Joi.any().forbidden()
 })

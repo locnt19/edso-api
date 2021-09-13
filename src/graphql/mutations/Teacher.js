@@ -9,25 +9,25 @@ import bcrypt from 'bcryptjs';
 
 
 
-export const registerTeacher = async (rootValue, { teacherInfo }) => {
+export const registerTeacher = async (parent, { input }, context, info) => {
     try {
-        let foundUser = await Teacher.emailExist(teacherInfo.email);
-        if (foundUser) {
+        let newUser = await Teacher.emailExist(input.email);
+        if (newUser) {
             return new UserInputError('This email has been used');
         }
-        const { error } = teacherRegisterInputSchema.validate(teacherInfo);
+        const { error } = teacherRegisterInputSchema.validate(input);
         if (error) {
             return new UserInputError(error.message, error);
         }
-        teacherInfo.password = bcrypt.hashSync(teacherInfo.password, 10);
-        foundUser = await new Teacher(teacherInfo);
-        foundUser.hash = generateHashFromId(foundUser._id);
-        await foundUser.save();
+        input.password = bcrypt.hashSync(input.password, 10);
+        newUser = await new Teacher(input);
+        newUser.hash = generateHashFromId(newUser._id);
+        await newUser.save();
 
         return {
             success: true,
-            msg: 'Register new teacher successfully',
-            payload: foundUser
+            msg: 'Register new Teacher successfully',
+            payload: newUser
         };
     } catch (e) {
         return e;

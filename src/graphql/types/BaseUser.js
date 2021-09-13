@@ -8,7 +8,6 @@ import {
 } from './index';
 
 export const BaseUserTemplate = `
-    password: String
     fullName: String
     birthDate: Date
     gender: String
@@ -32,10 +31,42 @@ export const BaseUserRegisterInputTemplate = `
     avatar: URL
 `;
 
+export const BaseUserUpdateInputTemplate = `
+    fullName: String
+    birthDate: Date
+    gender: String
+    email: String
+    phone: String
+    address: String
+    avatar: URL
+`
+export const UserFilterInputTemplate = `
+    schoolId: String
+    role: Role
+    isActive: Boolean
+`
+
 export const BaseUserDefs = gql`
     interface BaseUser {
         ${BaseUserTemplate}
         ${HashMustHave}
+    }
+
+    input UserUpdateInput {
+        admin: AdminUpdateInput
+        teacher: TeacherUpdateInput
+        student: StudentUpdateInput
+        manager: ManagerUpdateInput
+        support: SupportUpdateInput
+    }
+
+    input UserFilterInput {
+        ${UserFilterInputTemplate}
+    }
+
+    type UserPaginate {
+        docs: [BaseUser]
+        ${PaginateTemplate}
     }
 
     type MutationOfBaseUser implements MutationOf {
@@ -57,3 +88,4 @@ export const BaseUserResolver = {
         return null;
     }
 };
+

@@ -34,25 +34,25 @@ import bcrypt from 'bcryptjs';
 //     }
 // }
 
-export const registerAdmin = async (rootValue, { adminInfo }) => {
+export const registerAdmin = async (parent, { input }, context, info) => {
     try {
-        let foundUser = await Admin.emailExist(adminInfo.email);
-        if (foundUser) {
+        let newUser = await Admin.emailExist(input.email);
+        if (newUser) {
             return new UserInputError('This email has been used');
         }
-        const { error } = adminRegisterInputSchema.validate(adminInfo);
+        const { error } = adminRegisterInputSchema.validate(input);
         if (error) {
             return new UserInputError(error.message, error);
         }
-        adminInfo.password = bcrypt.hashSync(adminInfo.password, 10);
-        foundUser = await new Admin(adminInfo);
-        foundUser.hash = generateHashFromId(foundUser._id);
-        await foundUser.save();
+        input.password = bcrypt.hashSync(input.password, 10);
+        newUser = await new Admin(input);
+        newUser.hash = generateHashFromId(newUser._id);
+        await newUser.save();
 
         return {
             success: true,
             msg: 'Register new admin successfully',
-            payload: foundUser
+            payload: newUser
         };
     } catch (e) {
         return e;

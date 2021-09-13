@@ -6,7 +6,8 @@ import {
     HashOptional,
     PaginateTemplate,
     BaseUserTemplate,
-    BaseUserRegisterInputTemplate
+    BaseUserRegisterInputTemplate,
+    BaseUserUpdateInputTemplate
 } from './index';
 
 const AdminInfoTemplate = `
@@ -26,6 +27,11 @@ export const AdminDefs = gql`
 
     input AdminRegisterInput {
         ${BaseUserRegisterInputTemplate}
+        ${AdminInfoInputTemplate}
+    }
+
+    input AdminUpdateInput{
+        ${BaseUserUpdateInputTemplate}
         ${AdminInfoInputTemplate}
     }
 

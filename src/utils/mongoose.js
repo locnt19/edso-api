@@ -18,8 +18,6 @@ mongoose.plugin(require('@meanie/mongoose-to-json'));
 global.mongoose = mongoose;
 
 export async function connectMongoDb() {
-    console.log(`mongodb${DB_USE_SRV === 'true' ? '+srv' : ''}://${LOGIN_DB}${DB_HOST}${DB_USE_SRV ? '' : `:${DB_PORT}`
-        }/${DB_NAME}`)
     return mongoose.connect(
         `mongodb${DB_USE_SRV === 'true' ? '+srv' : ''}://${LOGIN_DB}${DB_HOST}${DB_USE_SRV ? '' : `:${DB_PORT}`
         }/${DB_NAME}`,

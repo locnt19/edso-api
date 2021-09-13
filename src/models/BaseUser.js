@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 import bcrypt from 'bcrypt';
 import { stubTrue } from 'lodash';
-// import aggregatePaginate from 'mongoose-aggregate-paginate-v2';
+import mongoosePaginate from 'mongoose-paginate-v2';
 
 const baseOptions = {
     discriminatorKey: 'role',
@@ -23,7 +23,6 @@ const BaseUserSchema = new Schema(
         email: { type: String, required: true },
         phone: { type: String, required: true },
         address: { type: String, required: true },
-        schoolID: String,
         avatar: String,
         isActive: {type: Boolean, default: true}
     }, baseOptions
@@ -37,8 +36,7 @@ BaseUserSchema.methods.comparePassword = function (password) {
     return bcrypt.compareSync(password, this.password);
 };
 
-// userSchema.plugin(aggregatePaginate);
-// userSchema.plugin(AutoIncrement, {id: 'sequential_id', inc_field: 'sid', reference_fields: ['role']})
+BaseUserSchema.plugin(mongoosePaginate);
 
 const BaseUser = mongoose.model('User', BaseUserSchema);
 

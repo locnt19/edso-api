@@ -1,7 +1,7 @@
 import { UserInputError } from 'apollo-server-express';
 import BaseUser from '../../models/BaseUser';
 import AccessToken from '../../models/AccessToken';
-import { baseUserRegisterInputSchema, generateIpFromReq } from '../../utils';
+import { adminUpdateInputSchema, baseUserRegisterInputSchema, baseUserUpdateInputSchema, managerUpdateInputSchema, generateIpFromReq, supportUpdateInputSchema, teacherUpdateInputSchema, studentUpdateInputSchema } from '../../utils';
 import jwt from 'jsonwebtoken';
 
 export const loginUser = async (rootValue, { email, password }, context) => {
@@ -59,14 +59,34 @@ export const logoutUser = async (rootValue, args, context, info) => {
 export const updateUser = async (rootValue, args, context, info) => {
     try {
         const filter = { hash: context.user.userHash };
-        const update = { args };
-        const { error } = baseUserRegisterInputSchema.validate(args);
-        if (error) {
-            return new UserInputError(error.message, error);
+        const update = args.input[`${context.user.role.toLowerCase()}`];
+        let validate
+        switch (context.user.role.toLowerCase()) {
+            case 'admin':
+                validate = adminUpdateInputSchema.validate(update);
+                break;
+            case 'manager':
+                validate = managerUpdateInputSchema.validate(update);
+                break;
+            case 'support':
+                validate = supportUpdateInputSchema.validate(update);
+                break;
+            case 'teacher':
+                validate = teacherUpdateInputSchema.validate(update);
+                break;
+            case 'student':
+                validate = studentUpdateInputSchema.validate(update);
+                break;
+        }
+        if (validate.error) {
+            return new UserInputError(validate.error.message, validate.error);
         }
         let user = await BaseUser.findOneAndUpdate(filter, update, { new: true });
-        console.log(user);
-        return user;
+        return {
+            success: true,
+            msg: 'Updated user info successfully',
+            payload: user
+        };
     } catch (e) {
         return e;
     }

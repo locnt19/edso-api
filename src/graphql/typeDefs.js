@@ -8,6 +8,8 @@ import {
     AdminDefs,
     TeacherDefs,
     StudentDefs,
+    ManagerDefs,
+    SupportDefs,
     AccessTokenDefs
 } from './types';
 
@@ -51,6 +53,8 @@ export const typeDefs = gql`
             filter: ClassFilterInput
         ): ClassPaginate
         getMe: BaseUser
+        getUserById(userHash: String!): BaseUser
+        getListUser(paginate: PaginateInput, filter: UserFilterInput): UserPaginate
     }
 
     type Mutation {
@@ -62,14 +66,15 @@ export const typeDefs = gql`
         createClass(input: ClassCreateInput!): MutationOfClass
         updateClass(input: ClassUpdateInput!): MutationOfClass
 
+        registerAdmin(input: AdminRegisterInput!): MutationOfAdmin
         deactivateAccount(email: String!): MutationOfBaseUser
-
-        registerAdmin(adminInfo: AdminRegisterInput!): MutationOfAdmin
-        registerTeacher(teacherInfo: TeacherRegisterInput!): MutationOfTeacher
-        registerStudent(studentInfo: StudentRegisterInput!): MutationOfStudent
-
+        registerTeacher(input: TeacherRegisterInput!): MutationOfTeacher
+        registerStudent(input: StudentRegisterInput!): MutationOfStudent
+        registerManager(input: ManagerRegisterInput!): MutationOfManager
+        registerSupport(input: SupportRegisterInput!): MutationOfSupport
         loginUser(email: String!, password: String!): MutationOfAccessToken
         logoutUser: MutationOfAccessToken
+        updateUser(input: UserUpdateInput!): MutationOfBaseUser
     }
 
     interface MutationOf {
@@ -85,5 +90,7 @@ export const typeDefs = gql`
     ${AdminDefs}
     ${TeacherDefs}
     ${StudentDefs}
+    ${ManagerDefs}
+    ${SupportDefs}
     ${AccessTokenDefs}
 `;
