@@ -21,19 +21,24 @@ export const typeDefs = gql`
 
     type Query {
         someQuery: String
+
         getCenter(
             paginate: PaginateInput
             filter: CenterFilterInput
         ): CenterPaginate
+
         getClass(
             paginate: PaginateInput
+            filter: ClassFilterInput
         ): ClassPaginate
     }
 
     type Mutation {
         someMutation(text: String): String
+
         createCenter(input: CenterCreateInput!): Center
         updateCenter(input: CenterUpdateInput!): Center
+
         createClass(input: ClassCreateInput!): Class
         updateClass(input: ClassUpdateInput!): Class
     }

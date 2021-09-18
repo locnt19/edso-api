@@ -27,24 +27,40 @@ const ClassCreateTemplate = `
     year: String
 `;
 
+const ClassStudentTemplate = `
+    teacherApproved: ObjectID
+    studentId: ObjectID
+    status: String
+`;
+
+const ClassTimeFrameTemplate = `
+    timeShift: String
+    date: String
+`;
+
+const ClassStudentReportTemplate = `
+    studentReport: ObjectID
+`;
+
 export const ClassDefs = gql`
     type ClassStudent {
         ${IdOptional}
-        teacherApproved: ObjectID
-        studentId: ObjectID
-        status: String
+        ${ClassStudentTemplate}
     }
 
     input ClassStudentInput {
         teacherApproved: ObjectID!
         studentId: ObjectID!
-        status: String
+        status: String!
+    }
+
+    input ClassStudentFilterInput {
+        ${ClassStudentTemplate}
     }
 
     type ClassTimeFrame {
         ${IdOptional}
-        timeShift: String
-        date: String
+        ${ClassTimeFrameTemplate}
     }
 
     input ClassTimeFrameInput {
@@ -52,13 +68,21 @@ export const ClassDefs = gql`
         date: String!
     }
 
+    input ClassTimeFrameFilterInput {
+        ${ClassTimeFrameTemplate}
+    }
+
     type ClassStudentReport {
         ${IdOptional}
-        studentReport: ObjectID
+        ${ClassStudentReportTemplate}
     }
 
     input ClassStudentReportInput {
         studentReport: ObjectID!
+    }
+
+    input ClassStudentReportFilterInput {
+        ${ClassStudentReportTemplate}
     }
 
     type Class {
@@ -88,5 +112,13 @@ export const ClassDefs = gql`
         students: [ClassStudentInput]
         timeFrame: [ClassTimeFrameInput]
         studentReport: [ClassStudentReportInput]
+    }
+
+    input ClassFilterInput {
+        ${HashOptional}
+        ${ClassTemplate}
+        students: ClassStudentFilterInput
+        timeFrame: ClassTimeFrameFilterInput
+        studentReport: ClassStudentReportFilterInput
     }
 `;

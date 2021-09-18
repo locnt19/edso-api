@@ -11,20 +11,34 @@ export const getClass = async (parent, args, context, info) => {
             limit: paginate && paginate.limit ? paginate.limit : 10
         };
 
-        const filterConvert = filter && changeObjectToDotNotationFormat(filter);
+        const filterObject = filter && changeObjectToDotNotationFormat(filter);
+        let filterArray = [];
 
-        if (filterConvert) {
-            for (const key in filterConvert) {
-                if (Object.hasOwnProperty.call(filterConvert, key)) {
-                    const element = filterConvert[key];
+        if (filterObject) {
+            for (const key in filterObject) {
+                if (Object.hasOwnProperty.call(filterObject, key)) {
+                    const element = filterObject[key];
                     const $regex = escapeStringRegexp(element);
 
-                    filterConvert[key] = { $regex: new RegExp($regex, 'i') };
+                    filterObject[key] = { $regex: new RegExp($regex, 'i') };
                 }
             }
+
+            filterArray = Object.keys(filterObject).map((key) => {
+                return { [key]: filterObject[key] };
+            });
         }
 
-        const data = await ClassModel.paginate(filterConvert, options);
+        console.log(filterArray);
+
+        const data = await ClassModel.paginate(
+            filterArray.length
+                ? {
+                      $and: filterArray
+                  }
+                : filterObject,
+            options
+        );
 
         return data;
     } catch (error) {
