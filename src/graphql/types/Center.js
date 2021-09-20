@@ -29,13 +29,13 @@ const CenterCreateTemplate = `
 `;
 
 const TimeShiftTemplate = `
-    from: String
-    to: String
+    from: Int
+    to: Int
     `;
 
 const TimeShiftCreateTempolate = `
-    from: String!
-    to: String!
+    from: Int!
+    to: Int!
 `;
 
 export const CenterDefs = gql`
@@ -70,6 +70,16 @@ export const CenterDefs = gql`
         docs: [Center]
         ${PaginateTemplate}
     }
+
+    type MutationOfCenter implements MutationOf {
+        "Mutation result"
+        success: Boolean
+        "Mutation message"
+        msg: String
+        "Center info"
+        payload: Center
+    }
+
 
     input CenterCreateInput {
         ${CenterCreateTemplate}

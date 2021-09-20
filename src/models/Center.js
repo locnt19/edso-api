@@ -17,8 +17,8 @@ const centerSchema = new Schema(
         timeShift: [
             {
                 hash: { type: String, required: true, unique: true },
-                from: { type: String, required: true },
-                to: { type: String, required: true }
+                from: { type: Number, required: true },
+                to: { type: Number, required: true }
             }
         ]
     },
