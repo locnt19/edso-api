@@ -39,8 +39,8 @@ export const typeDefs = gql`
         createCenter(input: CenterCreateInput!): MutationOfCenter
         updateCenter(input: CenterUpdateInput!): MutationOfCenter
 
-        createClass(input: ClassCreateInput!): Class
-        updateClass(input: ClassUpdateInput!): Class
+        createClass(input: ClassCreateInput!): MutationOfClass
+        updateClass(input: ClassUpdateInput!): MutationOfClass
     }
 
     interface MutationOf {

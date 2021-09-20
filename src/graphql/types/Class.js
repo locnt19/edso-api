@@ -94,6 +94,15 @@ export const ClassDefs = gql`
         studentReport: [ClassStudentReport]
     }
 
+    type MutationOfClass implements MutationOf {
+        "Mutation result"
+        success: Boolean
+        "Mutation message"
+        msg: String
+        "Class info"
+        payload: Class
+    }
+
     type ClassPaginate {
         docs: [Class]
         ${PaginateTemplate}

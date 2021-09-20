@@ -3,16 +3,16 @@ import { ClassModel } from '../../models/Class';
 
 export const createClass = async (parent, args, context, info) => {
     try {
-        const input = ClassModel(args.input);
+        const data = ClassModel(args.input);
 
-        if (input) {
-            input.hash = generateHashFromId(input._id);
-            await input.save();
+        data.hash = generateHashFromId(data._id);
+        await data.save();
 
-            return input;
-        } else {
-            throw new Error('Can not create Class.');
-        }
+        return {
+            success: true,
+            msg: 'Create Class successfully',
+            payload: data
+        };
     } catch (error) {
         return error;
     }
@@ -25,15 +25,15 @@ export const updateClass = async (parent, args, context, info) => {
 
         delete input.hash;
 
-        if (input && hash) {
-            const data = await ClassModel.findOneAndUpdate({ hash }, input, {
-                new: true
-            });
+        const data = await ClassModel.findOneAndUpdate({ hash }, input, {
+            new: true
+        });
 
-            return data;
-        } else {
-            throw new Error('Can not update Class.');
-        }
+        return {
+            success: true,
+            msg: 'Update Class successfully',
+            payload: data
+        };
     } catch (error) {
         return error;
     }
