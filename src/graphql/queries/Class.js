@@ -29,8 +29,6 @@ export const getClass = async (parent, args, context, info) => {
             });
         }
 
-        console.log(filterArray);
-
         const data = await ClassModel.paginate(
             filterArray.length
                 ? {

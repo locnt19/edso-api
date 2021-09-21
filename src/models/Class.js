@@ -7,7 +7,11 @@ const classSchema = new Schema(
         hash: { type: String, required: true, unique: true },
         name: { type: String, required: true },
         subjectId: { type: String, required: true },
-        status: { type: String, default: 'open' }, // started | open | closed
+        status: {
+            type: String,
+            default: 'open',
+            enum: ['started', 'open', 'closed']
+        },
         maxStudent: { type: Number },
         code: { type: String },
         year: { type: String },
@@ -15,13 +19,21 @@ const classSchema = new Schema(
             {
                 teacherApproved: { type: String, required: true },
                 studentId: { type: String, required: true },
-                status: { type: String, default: 'pending' } // pending | approved
+                status: {
+                    type: String,
+                    default: 'pending',
+                    enum: ['pending', 'approved']
+                }
             }
         ],
         timeFrame: [
             {
                 timeShift: { type: String, required: true },
-                date: { type: String, required: true } // mon | tue | wed | thu | fri | sat | sun
+                date: {
+                    type: String,
+                    required: true,
+                    enum: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+                }
             }
         ],
         studentReport: [

@@ -1,16 +1,12 @@
 import { gql } from 'apollo-server-express';
 
-import {
-    IdOptional,
-    HashMustHave,
-    HashOptional,
-    PaginateTemplate
-} from './index';
+import { HashMustHave, HashOptional, PaginateTemplate } from './index';
 
 const ClassTemplate = `
     centerId: ObjectID
     name: String
     subjectId: ObjectID
+    "pending | approved"
     status: String
     maxStudent: Int
     code: String
@@ -21,6 +17,7 @@ const ClassCreateTemplate = `
     centerId: ObjectID!
     name: String!
     subjectId: ObjectID!
+    "pending | approved"
     status: String
     maxStudent: Int
     code: String
@@ -30,11 +27,14 @@ const ClassCreateTemplate = `
 const ClassStudentTemplate = `
     teacherApproved: ObjectID
     studentId: ObjectID
+    "pending | approved. Default is 'pending'"
     status: String
 `;
 
 const ClassTimeFrameTemplate = `
+    "Time Shift hash"
     timeShift: String
+    "mon | tue | wed | thu | fri | sat | sun"
     date: String
 `;
 
@@ -44,13 +44,13 @@ const ClassStudentReportTemplate = `
 
 export const ClassDefs = gql`
     type ClassStudent {
-        ${IdOptional}
         ${ClassStudentTemplate}
     }
 
     input ClassStudentInput {
         teacherApproved: ObjectID!
         studentId: ObjectID!
+        "pending | approved"
         status: String!
     }
 
@@ -59,12 +59,13 @@ export const ClassDefs = gql`
     }
 
     type ClassTimeFrame {
-        ${IdOptional}
         ${ClassTimeFrameTemplate}
     }
 
     input ClassTimeFrameInput {
+        "Time Shift hash"
         timeShift: String!
+        "mon | tue | wed | thu | fri | sat | sun"
         date: String!
     }
 
@@ -73,7 +74,6 @@ export const ClassDefs = gql`
     }
 
     type ClassStudentReport {
-        ${IdOptional}
         ${ClassStudentReportTemplate}
     }
 
@@ -86,7 +86,6 @@ export const ClassDefs = gql`
     }
 
     type Class {
-        ${IdOptional}
         ${HashOptional}
         ${ClassTemplate}
         students: [ClassStudent]
