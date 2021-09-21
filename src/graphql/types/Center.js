@@ -9,7 +9,9 @@ const CenterTemplate = `
     address: String
     website: String
     logo: String
+    "center | school"
     type: String
+    "active | deactive"
     status: String
     subscribeLetter: Boolean
     termsAndConditions: String
@@ -22,7 +24,9 @@ const CenterCreateTemplate = `
     address: String
     website: String
     logo: String!
+    "center | school"
     type: String!
+    "active | deactive"
     status: String!
     subscribeLetter: Boolean
     termsAndConditions: String
@@ -40,7 +44,6 @@ const TimeShiftCreateTempolate = `
 
 export const CenterDefs = gql`
     type TimeShift {
-        _id: ObjectID
         ${HashOptional}
         ${TimeShiftTemplate}
     }
@@ -60,7 +63,6 @@ export const CenterDefs = gql`
     }
 
     type Center {
-        _id: ObjectID
         ${HashOptional}
         ${CenterTemplate}
         timeShift: [TimeShift]
