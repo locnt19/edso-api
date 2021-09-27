@@ -1,9 +1,9 @@
 import mongoose, { Schema } from 'mongoose';
 
-const accessTokenSchema = new Schema(
+const AccessTokenSchema = new Schema(
     {
+        ownerId: String,
         token: String,
-        owner: String,
         isActive: { type: Boolean, default: true },
         device: String,
         ip: String,
@@ -13,6 +13,12 @@ const accessTokenSchema = new Schema(
     { timestamps: true }
 );
 
-const AccessTokenModel = mongoose.model('AccessToken', accessTokenSchema);
+AccessTokenSchema.statics.deactivatePreviousToken = async function (userId) {
+    const filter = { ownerId: userId, isActive: true };
+    const update = { isActive: false };
+    return this.findOneAndUpdate(filter, update);
+};
 
-export default AccessTokenModel;
+const AccessToken = mongoose.model('AccessToken', AccessTokenSchema);
+
+export default AccessToken;
