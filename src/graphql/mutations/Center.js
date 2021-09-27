@@ -1,5 +1,6 @@
 import { generateHashFromId, generateIdFromHash } from '../../utils/helpers';
 import { CenterModel } from '../../models/Center';
+import mongoose from 'mongoose';
 
 export const createCenter = async (parent, args, context, info) => {
     try {

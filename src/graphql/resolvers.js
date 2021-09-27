@@ -7,14 +7,31 @@ import {
     JSONObjectResolver
 } from 'graphql-scalars';
 
-import { getCenter, getClass } from './queries';
+import {
+    getCenter,
+    getClass,
+    getMe,
+    getUserById,
+    getListUser
+} from './queries';
 
 import {
     createCenter,
     updateCenter,
     createClass,
-    updateClass
+    updateClass,
+    registerAdmin,
+    deactivateAccount,
+    registerTeacher,
+    registerStudent,
+    registerManager,
+    registerSupport,
+    loginUser,
+    logoutUser,
+    updateUser
 } from './mutations';
+
+import { BaseUserResolver, UserResolver } from './types';
 
 export const resolvers = {
     Query: {
@@ -22,7 +39,10 @@ export const resolvers = {
             return 'Some Query Is Awesome';
         },
         getCenter,
-        getClass
+        getClass,
+        getMe,
+        getUserById,
+        getListUser
     },
     Mutation: {
         someMutation: (root, args, context, info) => {
@@ -31,12 +51,22 @@ export const resolvers = {
         createCenter,
         updateCenter,
         createClass,
-        updateClass
+        updateClass,
+        registerAdmin,
+        deactivateAccount,
+        registerTeacher,
+        registerStudent,
+        registerManager,
+        registerSupport,
+        loginUser,
+        logoutUser,
+        updateUser
     },
+    BaseUser: BaseUserResolver,
     ObjectID: ObjectIDResolver,
     JSONObject: JSONObjectResolver,
     EmailAddress: EmailAddressResolver,
     DateTime: DateTimeResolver,
     Date: DateResolver,
     URL: URLResolver
-};
+}

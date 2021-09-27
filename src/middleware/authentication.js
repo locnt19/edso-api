@@ -1,59 +1,32 @@
 import jwt from 'jsonwebtoken';
-import UserModel from '../models/User';
-import AccessTokenModel from '../models/AccessToken';
-import basicAuth from 'basic-auth';
+import BaseUser from '../models/BaseUser';
+import AccessToken from '../models/AccessToken';
 import { UserInputError } from 'apollo-server-express';
-
-export async function basicAuthenticationMiddleware(req, res, next) {
-    try {
-        const {
-            headers: { authorization }
-        } = req;
-        if (!authorization) {
-            return next();
-        }
-        const authUser = basicAuth(req);
-        let username = process.env.USER_NAME;
-        if (authUser && authUser.name === username && authUser.pass === process.env.PASSWORD) {
-            req.basicAuthenticated = true;
-        }
-        next();
-    } catch (e) {
-        return next();
-    }
-}
 
 export async function authenticationMiddleware(req, res, next) {
     try {
+        console.log('Middleware running!')
         const {
-                headers: { authorization }
-            } = req,
+            headers: { authorization }
+        } = req,
             system = req.headers['x-system'];
         req.system = system;
         if (!authorization) {
             return next();
         }
-        const accessToken = authorization.split(' ')[1];
+        const token = authorization.split(' ')[1];
+        const decoded = await verifyToken(token);
 
-        const decoded = jwt.verify(accessToken, process.env.JWT_SECRET);
-        if (!decoded) {
-            return next();
-        }
-        const jwtToken = await AccessTokenModel.findOne({
-            token: accessToken,
-            isActive: true
-        });
-        if (!jwtToken) {
-            return next();
-        }
-        let user = await UserModel.findById(decoded.userId);
+        let user = await BaseUser.findOne({ hash: decoded.userHash });
         if (!user) {
             return next();
         }
-        Object.assign(req, {
-            user,
-            accessToken,
-            system
+        Object.assign(req.headers, {
+            user: {
+                userHash: user.hash,
+                role: user.role,
+                system
+            }
         });
         return next();
     } catch (e) {
@@ -61,29 +34,21 @@ export async function authenticationMiddleware(req, res, next) {
     }
 }
 
-export const verifyToken = async (rootValue, { accessToken }, { t }) => {
+export const verifyToken = async (token) => {
     try {
-        const decoded = jwt.verify(accessToken, process.env.JWT_SECRET);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
         if (!decoded) {
-            return new UserInputError(t('invalidToken'));
+            return new UserInputError('Invalid Token');
         }
-        const jwtToken = await AccessTokenModel.findOne({
-            token: accessToken,
+        const jwtToken = await AccessToken.findOne({
+            token: token,
             isActive: true
         });
         if (!jwtToken) {
-            return new UserInputError(t('invalidToken'));
+            return new UserInputError('Unregistered Token');
         }
-        let user = await UserModel.findById(decoded.userId);
-        if (!user) {
-            return new UserInputError(t('userNotFound'));
-        }
-        Object.assign(t, {
-            user,
-            accessToken
-        });
-        return user;
+        return decoded;
     } catch (e) {
         return e;
     }
-};
+}
