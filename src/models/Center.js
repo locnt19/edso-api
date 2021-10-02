@@ -49,6 +49,16 @@ const centerSchema = new Schema(
             required: true,
             enum: ['center', 'school']
         },
+        level: {
+            type: String,
+            required: true,
+            enum: [
+                'center',
+                'primary_school',
+                'secondary_school',
+                'high_school'
+            ]
+        },
         status: {
             type: String,
             required: true,

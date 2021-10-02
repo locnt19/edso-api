@@ -11,6 +11,8 @@ const CenterTemplate = `
     logo: String
     "center | school"
     type: String
+    "center | primary_school | secondary_school | high_school"
+    level: String
     "active | deactive"
     status: String
     subscribeLetter: Boolean
@@ -26,6 +28,8 @@ const CenterCreateTemplate = `
     logo: String!
     "center | school"
     type: String!
+    "center | primary_school | secondary_school | high_school"
+    level: String!
     "active | deactive"
     status: String!
     subscribeLetter: Boolean
