@@ -5,10 +5,9 @@ import { UserInputError } from 'apollo-server-express';
 
 export async function authenticationMiddleware(req, res, next) {
     try {
-        console.log('Middleware running!')
         const {
-            headers: { authorization }
-        } = req,
+                headers: { authorization }
+            } = req,
             system = req.headers['x-system'];
         req.system = system;
         if (!authorization) {
@@ -51,4 +50,4 @@ export const verifyToken = async (token) => {
     } catch (e) {
         return e;
     }
-}
+};

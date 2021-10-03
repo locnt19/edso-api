@@ -1,9 +1,7 @@
 import { gql } from 'apollo-server-express';
 
 import {
-    IdOptional,
     HashMustHave,
-    HashOptional,
     PaginateTemplate,
     BaseUserTemplate,
     BaseUserRegisterInputTemplate,
@@ -49,4 +47,3 @@ export const AdminDefs = gql`
         payload: Admin
     }
 `;
-

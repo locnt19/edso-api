@@ -1,11 +1,6 @@
 import { gql } from 'apollo-server-express';
 
-import {
-    IdOptional,
-    HashMustHave,
-    HashOptional,
-    PaginateTemplate
-} from './index';
+import { HashMustHave, PaginateTemplate } from './index';
 
 export const BaseUserTemplate = `
     fullName: String
@@ -18,6 +13,7 @@ export const BaseUserTemplate = `
     avatar: URL
     createdAt: Date
     isActive: Boolean
+    isBlock: Boolean
 `;
 
 export const BaseUserRegisterInputTemplate = `
@@ -39,12 +35,14 @@ export const BaseUserUpdateInputTemplate = `
     phone: String
     address: String
     avatar: URL
-`
+    isBlock: Boolean
+`;
 export const UserFilterInputTemplate = `
     schoolId: String
     role: Role
     isActive: Boolean
-`
+    isBlock: Boolean
+`;
 
 export const BaseUserDefs = gql`
     interface BaseUser {
@@ -88,4 +86,3 @@ export const BaseUserResolver = {
         return null;
     }
 };
-

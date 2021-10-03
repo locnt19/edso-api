@@ -1,6 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
 import bcrypt from 'bcrypt';
-import { stubTrue } from 'lodash';
 import mongoosePaginate from 'mongoose-paginate-v2';
 
 const baseOptions = {
@@ -24,8 +23,10 @@ const BaseUserSchema = new Schema(
         phone: { type: String, required: true },
         address: { type: String, required: true },
         avatar: String,
-        isActive: {type: Boolean, default: true}
-    }, baseOptions
+        isActive: { type: Boolean, default: true },
+        isBlock: { type: Boolean, default: false }
+    },
+    baseOptions
 );
 
 BaseUserSchema.statics.emailExist = async function (email) {
@@ -41,6 +42,3 @@ BaseUserSchema.plugin(mongoosePaginate);
 const BaseUser = mongoose.model('User', BaseUserSchema);
 
 export default BaseUser;
-
-
-
