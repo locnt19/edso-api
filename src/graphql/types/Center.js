@@ -27,7 +27,7 @@ const CenterCreateTemplate = `
     email: String!
     address: String
     website: String
-    logo: String!
+    logo: String
     "center | school"
     type: String!
     "center | primary_school | secondary_school | high_school"
