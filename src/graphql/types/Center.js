@@ -17,6 +17,8 @@ const CenterTemplate = `
     status: String
     subscribeLetter: Boolean
     termsAndConditions: String
+    createdAt: String
+    updatedAt: String
 `;
 
 const CenterCreateTemplate = `
