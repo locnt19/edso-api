@@ -18,7 +18,8 @@ export const loginUser = async (rootValue, { email, password }, context) => {
         let accessToken = jwt.sign(
             {
                 userHash: foundUser.hash,
-                role: foundUser.role
+                role: foundUser.role,
+                isBlock: foundUser.isBlock
             },
             process.env.JWT_SECRET,
             { expiresIn: process.env.JWT_EXPIRATION }
@@ -91,4 +92,3 @@ export const updateUser = async (rootValue, args, context, info) => {
         return e;
     }
 }
-
