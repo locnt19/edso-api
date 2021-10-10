@@ -63,149 +63,229 @@ interface BaseUser {
   hash: String!
 }
 
+type TimeShift {
+    hash: String
+    from: Int
+    to: Int
+}
+
+input TimeShiftCreateInput {
+    from: Int!
+    to: Int!
+}
+
+input TimeShiftUpdateInput {
+    hash: String
+    from: Int
+    to: Int
+}
+
+input TimeShiftFilterInput {
+    hash: String
+    from: Int
+    to: Int
+}
+
 type Center {
-  _id: ObjectID
-  hash: String
-  name: String
-  phone: String
-  email: String
-  address: String
-  website: String
-  logo: String
-  type: String
-  status: String
-  subscribeLetter: Boolean
-  termsAndConditions: String
-  timeShift: [TimeShift]
-}
-
-input CenterCreateInput {
-  name: String!
-  phone: String!
-  email: String!
-  address: String
-  website: String
-  logo: String!
-  type: String!
-  status: String!
-  subscribeLetter: Boolean
-  termsAndConditions: String
-  timeShift: [TimeShiftCreateInput]
-}
-
-input CenterFilterInput {
-  hash: String
-  name: String
-  phone: String
-  email: String
-  address: String
-  website: String
-  logo: String
-  type: String
-  status: String
-  subscribeLetter: Boolean
-  termsAndConditions: String
-  timeShift: TimeShiftFilterInput
-}
+    hash: String
+    name: String
+    phone: String
+    email: String
+    address: String
+    website: String
+    logo: String
+    "center | school"
+    type: String
+    "center | primary_school | secondary_school | high_school"
+    level: String
+    "active | deactive"
+    status: String
+    subscribeLetter: Boolean
+    termsAndConditions: String
+    createdAt: String
+    updatedAt: String
+    timeShift: [TimeShift]
+    }
 
 type CenterPaginate {
-  docs: [Center]
-  totalDocs: Int
-  limit: Int
-  totalPages: Int
-  page: Int
-  hasPrevPage: Boolean
-  hasNextPage: Boolean
-  prevPage: Int
-  nextPage: Int
+    docs: [Center]
+    totalDocs: Int
+    limit: Int
+    totalPages: Int
+    page: Int
+    hasPrevPage: Boolean
+    hasNextPage: Boolean
+    prevPage: Int
+    nextPage: Int
+    }
+
+type MutationOfCenter implements MutationOf {
+    "Mutation result"
+    success: Boolean
+    "Mutation message"
+    msg: String
+    "Center info"
+    payload: Center
 }
+
+
+input CenterCreateInput {
+    name: String!
+    phone: String!
+    email: String!
+    address: String
+    website: String
+    logo: String
+    "center | school"
+    type: String!
+    "center | primary_school | secondary_school | high_school"
+    level: String!
+    "active | deactive"
+    status: String!
+    subscribeLetter: Boolean
+    termsAndConditions: String
+    timeShift: [TimeShiftCreateInput]
+    }
 
 input CenterUpdateInput {
-  hash: String!
-  name: String
-  phone: String
-  email: String
-  address: String
-  website: String
-  logo: String
-  type: String
-  status: String
-  subscribeLetter: Boolean
-  termsAndConditions: String
-  timeShift: [TimeShiftUpdateInput]
-}
+    hash: String!
+    name: String
+    phone: String
+    email: String
+    address: String
+    website: String
+    logo: String
+    "center | school"
+    type: String
+    "center | primary_school | secondary_school | high_school"
+    level: String
+    "active | deactive"
+    status: String
+    subscribeLetter: Boolean
+    termsAndConditions: String
+    createdAt: String
+    updatedAt: String
+    timeShift: [TimeShiftUpdateInput]
+    }
 
-type Class {
-  _id: ObjectID
-  hash: String
-  centerId: ObjectID
-  name: String
-  subjectId: ObjectID
-  status: String
-  maxStudent: Int
-  code: String
-  year: String
-  students: [ClassStudent]
-  timeFrame: [ClassTimeFrame]
-  studentReport: [ClassStudentReport]
-}
-
-input ClassCreateInput {
-  centerId: ObjectID!
-  name: String!
-  subjectId: ObjectID!
-  status: String
-  maxStudent: Int
-  code: String
-  year: String
-  students: [ClassStudentInput]
-  timeFrame: [ClassTimeFrameInput]
-  studentReport: [ClassStudentReportInput]
-}
-
-type ClassPaginate {
-  docs: [Class]
-  totalDocs: Int
-  limit: Int
-  totalPages: Int
-  page: Int
-  hasPrevPage: Boolean
-  hasNextPage: Boolean
-  prevPage: Int
-  nextPage: Int
-}
+input CenterFilterInput {
+    hash: String
+    name: String
+    phone: String
+    email: String
+    address: String
+    website: String
+    logo: String
+    "center | school"
+    type: String
+    "center | primary_school | secondary_school | high_school"
+    level: String
+    "active | deactive"
+    status: String
+    subscribeLetter: Boolean
+    termsAndConditions: String
+    createdAt: String
+    updatedAt: String
+    timeShift: TimeShiftFilterInput
+    }
 
 type ClassStudent {
-  _id: ObjectID
-  teacherApproved: ObjectID
-  studentId: ObjectID
-  status: String
+    teacherApproved: ObjectID
+    studentId: ObjectID
+    "pending | approved. Default is 'pending'"
+    status: String
 }
 
 input ClassStudentInput {
-  teacherApproved: ObjectID!
-  studentId: ObjectID!
-  status: String
+    teacherApproved: ObjectID!
+    studentId: ObjectID!
+    "pending | approved"
+    status: String!
 }
 
-type ClassStudentReport {
-  _id: ObjectID
-  studentReport: ObjectID
-}
-
-input ClassStudentReportInput {
-  studentReport: ObjectID!
+input ClassStudentFilterInput {
+    teacherApproved: ObjectID
+    studentId: ObjectID
+    "pending | approved. Default is 'pending'"
+    status: String
 }
 
 type ClassTimeFrame {
-  _id: ObjectID
-  timeShift: String
-  date: String
+    "Time Shift hash"
+    timeShift: String
+    "mon | tue | wed | thu | fri | sat | sun"
+    date: String
 }
 
 input ClassTimeFrameInput {
-  timeShift: String!
-  date: String!
+    "Time Shift hash"
+    timeShift: String!
+    "mon | tue | wed | thu | fri | sat | sun"
+    date: String!
+}
+
+input ClassTimeFrameFilterInput {
+    "Time Shift hash"
+    timeShift: String
+    "mon | tue | wed | thu | fri | sat | sun"
+    date: String
+}
+
+type ClassStudentReport {
+    studentReport: ObjectID
+}
+
+input ClassStudentReportInput {
+    studentReport: ObjectID!
+}
+
+input ClassStudentReportFilterInput {
+    studentReport: ObjectID
+}
+
+type Class {
+    hash: String
+    centerId: ObjectID
+    name: String
+    subjectId: ObjectID
+    "pending | approved"
+    status: String
+    maxStudent: Int
+    code: String
+    year: String
+    students: [ClassStudent]
+    timeFrame: [ClassTimeFrame]
+    studentReport: [ClassStudentReport]
+}
+
+type MutationOfClass implements MutationOf {
+    "Mutation result"
+    success: Boolean
+    "Mutation message"
+    msg: String
+    "Class info"
+    payload: Class
+}
+
+type ClassPaginate {
+    docs: [Class]
+    totalDocs: Int
+    limit: Int
+    totalPages: Int
+    page: Int
+    hasPrevPage: Boolean
+    hasNextPage: Boolean
+    prevPage: Int
+    nextPage: Int
+}
+
+input ClassCreateInput {
+    centerId: ObjectID!
+    name: String!
+    subjectId: ObjectID!
+    "pending | approved"
+    status: String
+    studentReport: ClassStudentReportFilterInput
 }
 
 """
@@ -441,32 +521,7 @@ input TeacherRegisterInput {
   subject: String!
 }
 
-type TimeShift {
-  _id: ObjectID
-  hash: String
-  from: String
-  to: String
-}
-
-input TimeShiftCreateInput {
-  from: String!
-  to: String!
-}
-
-input TimeShiftFilterInput {
-  hash: String
-  from: String
-  to: String
-}
-
-input TimeShiftUpdateInput {
-  hash: String
-  from: String
-  to: String
-}
-
 """
 A field whose value conforms to the standard URL format as specified in RFC3986: https://www.ietf.org/rfc/rfc3986.txt.
 """
 scalar URL
-
