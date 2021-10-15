@@ -3,43 +3,38 @@ import { gql } from 'apollo-server-express';
 import { HashMustHave, HashOptional, PaginateTemplate } from './index';
 
 const ClassTemplate = `
-    centerId: ObjectID
+    centerHash: String
     name: String
-    subjectId: ObjectID
-    "pending | approved"
-    status: String
+    subjectHash: String
+    status: ClassStatus
     maxStudent: Int
     code: String
     year: String
 `;
 
 const ClassCreateTemplate = `
-    centerId: ObjectID!
+    centerHash: String!
     name: String!
-    subjectId: ObjectID!
-    "pending | approved"
-    status: String
+    subjectHash: String!
+    status: ClassStatus
     maxStudent: Int
     code: String
     year: String
 `;
 
 const ClassStudentTemplate = `
-    teacherApproved: ObjectID
-    studentId: ObjectID
-    "pending | approved. Default is 'pending'"
-    status: String
+    teacherApprovedHash: String
+    studentHash: String
+    status: ClassStudentStatus
 `;
 
 const ClassTimeFrameTemplate = `
-    "Time Shift hash"
-    timeShift: String
-    "mon | tue | wed | thu | fri | sat | sun"
-    date: String
+    timeShiftHash: String
+    date: ClassTimeFrameDate
 `;
 
 const ClassStudentReportTemplate = `
-    studentReport: ObjectID
+    studentReportHash: String
 `;
 
 export const ClassDefs = gql`
@@ -48,10 +43,9 @@ export const ClassDefs = gql`
     }
 
     input ClassStudentInput {
-        teacherApproved: ObjectID!
-        studentId: ObjectID!
-        "pending | approved"
-        status: String!
+        teacherApprovedHash: String!
+        studentHash: String!
+        status: ClassStudentStatus
     }
 
     input ClassStudentFilterInput {
@@ -63,10 +57,8 @@ export const ClassDefs = gql`
     }
 
     input ClassTimeFrameInput {
-        "Time Shift hash"
-        timeShift: String!
-        "mon | tue | wed | thu | fri | sat | sun"
-        date: String!
+        timeShiftHash: String!
+        date: ClassTimeFrameDate!
     }
 
     input ClassTimeFrameFilterInput {
@@ -78,7 +70,7 @@ export const ClassDefs = gql`
     }
 
     input ClassStudentReportInput {
-        studentReport: ObjectID!
+        studentReportHash: String!
     }
 
     input ClassStudentReportFilterInput {

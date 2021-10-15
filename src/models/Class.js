@@ -3,10 +3,10 @@ import mongoosePaginate from 'mongoose-paginate-v2';
 
 const classSchema = new Schema(
     {
-        centerId: { type: String, required: true },
+        centerHash: { type: String, required: true },
         hash: { type: String, required: true, unique: true },
         name: { type: String, required: true },
-        subjectId: { type: String, required: true },
+        subjectHash: { type: String, required: true },
         status: {
             type: String,
             default: 'open',
@@ -17,8 +17,8 @@ const classSchema = new Schema(
         year: { type: String },
         students: [
             {
-                teacherApproved: { type: String, required: true },
-                studentId: { type: String, required: true },
+                teacherApprovedHash: { type: String, required: true },
+                studentHash: { type: String, required: true },
                 status: {
                     type: String,
                     default: 'pending',
@@ -28,7 +28,7 @@ const classSchema = new Schema(
         ],
         timeFrame: [
             {
-                timeShift: { type: String, required: true },
+                timeShiftHash: { type: String, required: true },
                 date: {
                     type: String,
                     required: true,
@@ -38,7 +38,7 @@ const classSchema = new Schema(
         ],
         studentReport: [
             {
-                studentReport: { type: String, required: true }
+                studentReportHash: { type: String, required: true }
             }
         ]
     },

@@ -190,64 +190,64 @@ input CenterFilterInput {
     }
 
 type ClassStudent {
-    teacherApproved: ObjectID
-    studentId: ObjectID
+    teacherApprovedHash: String
+    studentHash: String
     "pending | approved. Default is 'pending'"
     status: String
 }
 
 input ClassStudentInput {
-    teacherApproved: ObjectID!
-    studentId: ObjectID!
+    teacherApprovedHash: String!
+    studentHash: String!
     "pending | approved"
     status: String!
 }
 
 input ClassStudentFilterInput {
-    teacherApproved: ObjectID
-    studentId: ObjectID
+    teacherApprovedHash: String
+    studentHash: String
     "pending | approved. Default is 'pending'"
     status: String
 }
 
 type ClassTimeFrame {
     "Time Shift hash"
-    timeShift: String
+    timeShiftHash: String
     "mon | tue | wed | thu | fri | sat | sun"
     date: String
 }
 
 input ClassTimeFrameInput {
     "Time Shift hash"
-    timeShift: String!
+    timeShiftHash: String!
     "mon | tue | wed | thu | fri | sat | sun"
     date: String!
 }
 
 input ClassTimeFrameFilterInput {
     "Time Shift hash"
-    timeShift: String
+    timeShiftHash: String
     "mon | tue | wed | thu | fri | sat | sun"
     date: String
 }
 
 type ClassStudentReport {
-    studentReport: ObjectID
+    studentReport: String
 }
 
 input ClassStudentReportInput {
-    studentReport: ObjectID!
+    studentReport: String!
 }
 
 input ClassStudentReportFilterInput {
-    studentReport: ObjectID
+    studentReport: String
 }
 
 type Class {
     hash: String
-    centerId: ObjectID
+    centerHash: String
     name: String
-    subjectId: ObjectID
+    subjectHash: String
     "pending | approved"
     status: String
     maxStudent: Int
@@ -280,9 +280,9 @@ type ClassPaginate {
 }
 
 input ClassCreateInput {
-    centerId: ObjectID!
+    centerHash: String!
     name: String!
-    subjectId: ObjectID!
+    subjectHash: String!
     "pending | approved"
     status: String
     studentReport: ClassStudentReportFilterInput
