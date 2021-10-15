@@ -40,6 +40,18 @@ export const typeDefs = gql`
         PhD
     }
 
+    enum CenterLevel {
+        center
+        primary_school
+        secondary_school
+        high_school
+    }
+
+    enum CenterStatus {
+        active
+        deactive
+    }
+
     type Query {
         someQuery: String
 
