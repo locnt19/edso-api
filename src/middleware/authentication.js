@@ -27,6 +27,7 @@ export async function authenticationMiddleware(req, res, next) {
             user: {
                 userHash: user.hash,
                 role: user.role,
+                centerId: user.centerId,
                 system
             }
         });

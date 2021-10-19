@@ -14,6 +14,7 @@ export const BaseUserTemplate = `
     createdAt: Date
     isActive: Boolean
     isBlock: Boolean
+    centerId: String
 `;
 
 export const BaseUserRegisterInputTemplate = `
@@ -25,6 +26,7 @@ export const BaseUserRegisterInputTemplate = `
     phone: String!
     address: String
     avatar: URL
+    centerId: String
 `;
 
 export const BaseUserUpdateInputTemplate = `
@@ -38,7 +40,7 @@ export const BaseUserUpdateInputTemplate = `
     isBlock: Boolean
 `;
 export const UserFilterInputTemplate = `
-    schoolId: String
+    centerId: String
     role: Role
     isActive: Boolean
     isBlock: Boolean

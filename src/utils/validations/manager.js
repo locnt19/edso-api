@@ -2,7 +2,7 @@ import Joi from 'joi';
 import { baseUserRegisterInputSchema, baseUserUpdateInputSchema } from '.';
 
 export const managerRegisterInputSchema = baseUserRegisterInputSchema.keys({
-    schoolId: Joi.string().required(),
+    centerId: Joi.string().required(),
     info: Joi.string()
 })
 

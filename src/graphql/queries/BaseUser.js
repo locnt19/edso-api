@@ -13,9 +13,14 @@ export const getMe = async (rootValue, args, context, info) => {
     }
 };
 
-export const getUserById = async (rootValue, { userHash }, context, info) => {
+export const getUserById = async (rootValue, args, context, info) => {
     try {
-        let user = await BaseUser.findOne({ hash: userHash });
+        const filter = {
+            hash: args.userHash
+        }
+        if(context.user.centerId) filter.centerId = context.user.centerId;
+        console.log(filter);
+        let user = await BaseUser.findOne(filter);
         if (!user) {
             return new UserInputError('User does not exist!');
         }
@@ -28,6 +33,7 @@ export const getUserById = async (rootValue, { userHash }, context, info) => {
 export const getListUser = async (rootValue, args, context, info) => {
     try {
         const { paginate, filter } = args;
+        if(context.user.centerId) filter.centerId = context.user.centerId;
 
         const options = {
             page: paginate && paginate.page ? paginate.page : 1,

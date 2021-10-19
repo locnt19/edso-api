@@ -11,7 +11,6 @@ import {
 } from './index';
 
 const TeacherInfoTemplate = `
-    schoolId: String
     level: Level
     workPlace: String
     subjects: [String]
@@ -19,7 +18,6 @@ const TeacherInfoTemplate = `
 `;
 
 const TeacherInfoInputTemplate = `
-    schoolId: String!
     level: Level!
     workPlace: String!
     subjects: [String!]

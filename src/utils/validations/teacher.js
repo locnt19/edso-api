@@ -2,7 +2,7 @@ import Joi from 'joi';
 import { baseUserRegisterInputSchema, baseUserUpdateInputSchema } from '.';
 
 export const teacherRegisterInputSchema = baseUserRegisterInputSchema.keys({
-    schoolId: Joi.string().required(),
+    centerId: Joi.string().required(),
     level: Joi.valid('Bachelor', 'Master', 'PhD').required(),
     classIds: Joi.array().items(Joi.string()),
     subjects: Joi.array().items(Joi.string().required()),

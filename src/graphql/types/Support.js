@@ -11,12 +11,10 @@ import {
 } from './index';
 
 const SupportInfoTemplate = `
-    schoolId: String
     info: String
 `;
 
 const SupportInfoInputTemplate = `
-    schoolId: String!
     info: String
 `;
 

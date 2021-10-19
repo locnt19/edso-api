@@ -11,12 +11,10 @@ import {
 } from './index';
 
 const StudentInfoTemplate = `
-    schoolId: String
     classIDs: [ObjectID]
 `;
 
 const StudentInfoInputTemplate = `
-    schoolId: String
     classIDs: [ObjectID]
 `;
 

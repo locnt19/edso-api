@@ -11,12 +11,10 @@ import {
 } from './index';
 
 const ManagerInfoTemplate = `
-    schoolId: String
     info: String
 `;
 
 const ManagerInfoInputTemplate = `
-    schoolId: String!
     info: String
 `;
 
