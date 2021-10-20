@@ -15,6 +15,7 @@ export const registerTeacher = async (parent, { input }, context, info) => {
         if (newUser) {
             return new UserInputError('This email has been used');
         }
+        input.centerId = context.user.centerId;
         const { error } = teacherRegisterInputSchema.validate(input);
         if (error) {
             return new UserInputError(error.message, error);

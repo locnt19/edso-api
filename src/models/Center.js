@@ -44,11 +44,6 @@ const centerSchema = new Schema(
         address: { type: String },
         website: { type: String },
         logo: { type: String, required: true },
-        type: {
-            type: String,
-            required: true,
-            enum: ['center', 'school']
-        },
         level: {
             type: String,
             required: true,

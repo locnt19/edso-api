@@ -40,6 +40,39 @@ export const typeDefs = gql`
         PhD
     }
 
+    enum CenterLevel {
+        center
+        primary_school
+        secondary_school
+        high_school
+    }
+
+    enum CenterStatus {
+        active
+        deactive
+    }
+
+    enum ClassStatus {
+        started
+        open
+        closed
+    }
+
+    enum ClassStudentStatus {
+        pending
+        approved
+    }
+
+    enum ClassTimeFrameDate {
+        mon
+        tue
+        wed
+        thu
+        fri
+        sat
+        sun
+    }
+
     type Query {
         someQuery: String
 
@@ -54,7 +87,10 @@ export const typeDefs = gql`
         ): ClassPaginate
         getMe: BaseUser
         getUserById(userHash: String!): BaseUser
-        getListUser(paginate: PaginateInput, filter: UserFilterInput): UserPaginate
+        getListUser(
+            paginate: PaginateInput
+            filter: UserFilterInput
+        ): UserPaginate
     }
 
     type Mutation {

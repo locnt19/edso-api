@@ -19,7 +19,7 @@ export const getUserById = async (rootValue, args, context, info) => {
             hash: args.userHash
         }
         if(context.user.centerId) filter.centerId = context.user.centerId;
-        console.log(filter);
+
         let user = await BaseUser.findOne(filter);
         if (!user) {
             return new UserInputError('User does not exist!');

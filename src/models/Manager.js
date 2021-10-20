@@ -2,6 +2,7 @@ import { Schema } from 'mongoose';
 import BaseUser from './BaseUser';
 
 const ManagerSchema = new Schema({
+    centerId: { type: String, required: true },
     info: { type: String }
 })
 

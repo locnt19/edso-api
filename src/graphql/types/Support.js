@@ -11,6 +11,7 @@ import {
 } from './index';
 
 const SupportInfoTemplate = `
+    centerId: String
     info: String
 `;
 

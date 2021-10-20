@@ -15,6 +15,7 @@ export const registerSupport = async (parent, { input }, context, info) => {
         if (newUser) {
             return new UserInputError('This email has been used');
         }
+        input.centerId = context.user.centerId;
         const { error } = supportRegisterInputSchema.validate(input);
         if (error) {
             return new UserInputError(error.message, error);

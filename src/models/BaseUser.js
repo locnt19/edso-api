@@ -24,8 +24,7 @@ const BaseUserSchema = new Schema(
         address: { type: String, required: true },
         avatar: String,
         isActive: { type: Boolean, default: true },
-        isBlock: { type: Boolean, default: false },
-        centerId: String
+        isBlock: { type: Boolean, default: false }
     },
     baseOptions
 );

@@ -62,9 +62,9 @@ export const permissions = shield(
             registerAdmin: allow,
             deactivateAccount: and(isAuthenticated, isSuperAdmin),
             registerManager: and(isAuthenticated, isSuperAdmin),
-            registerSupport: and(isAuthenticated, or(isSuperAdmin, isManager)),
-            registerTeacher: and(isAuthenticated, or(isSuperAdmin, isManager, isSupport)),
-            registerStudent: and(isAuthenticated, or(isSuperAdmin, isManager, isSupport))
+            registerSupport: and(isAuthenticated, isManager),
+            registerTeacher: and(isAuthenticated, or(isManager, isSupport)),
+            registerStudent: and(isAuthenticated, or(isManager, isSupport))
         }
     },
     {

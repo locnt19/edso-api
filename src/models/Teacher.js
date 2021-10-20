@@ -2,6 +2,7 @@ import { Schema } from 'mongoose';
 import BaseUser from './BaseUser';
 
 const TeacherSchema = new Schema({
+    centerId: { type: String, required: true },
     level: { type: String, required: true },
     classIds: { type: [Schema.Types.ObjectId] },
     subjects: { type: [String], required: true},

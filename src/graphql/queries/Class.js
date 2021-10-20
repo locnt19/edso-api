@@ -5,6 +5,7 @@ import escapeStringRegexp from 'escape-string-regexp';
 export const getClass = async (parent, args, context, info) => {
     try {
         const { paginate, filter } = args;
+        if(context.user.centerId) filter.centerId = context.user.centerId;
 
         const options = {
             page: paginate && paginate.page ? paginate.page : 1,

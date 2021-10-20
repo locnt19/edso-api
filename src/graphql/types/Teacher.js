@@ -11,6 +11,7 @@ import {
 } from './index';
 
 const TeacherInfoTemplate = `
+    centerId: String
     level: Level
     workPlace: String
     subjects: [String]

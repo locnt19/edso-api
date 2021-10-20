@@ -11,6 +11,7 @@ import {
 } from './index';
 
 const StudentInfoTemplate = `
+    centerId: String
     classIDs: [ObjectID]
 `;
 

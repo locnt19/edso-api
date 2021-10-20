@@ -9,12 +9,8 @@ const CenterTemplate = `
     address: String
     website: String
     logo: String
-    "center | school"
-    type: String
-    "center | primary_school | secondary_school | high_school"
-    level: String
-    "active | deactive"
-    status: String
+    level: CenterLevel
+    status: CenterStatus
     subscribeLetter: Boolean
     termsAndConditions: String
     createdAt: String
@@ -28,12 +24,8 @@ const CenterCreateTemplate = `
     address: String
     website: String
     logo: String
-    "center | school"
-    type: String!
-    "center | primary_school | secondary_school | high_school"
-    level: String!
-    "active | deactive"
-    status: String!
+    level: CenterLevel!
+    status: CenterStatus
     subscribeLetter: Boolean
     termsAndConditions: String
 `;

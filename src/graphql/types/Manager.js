@@ -11,10 +11,12 @@ import {
 } from './index';
 
 const ManagerInfoTemplate = `
+    centerId: String
     info: String
 `;
 
 const ManagerInfoInputTemplate = `
+    centerId: String!
     info: String
 `;
 
